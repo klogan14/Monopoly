@@ -7,7 +7,7 @@ package monopoly;
 
 /**
  *
- * @author be0754kc
+ * @author John
  */
 public class Monopoly {
 
