@@ -15,7 +15,7 @@ public class Player {
         this.name = name;
         this.dice = dice;
         this.board = board;
-        piece = new Piece(board.getStartSquare());
+        this.piece = new Piece(board.getStartSquare());
     }
     
     public void takeTurn(){
