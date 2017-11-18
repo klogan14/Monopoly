@@ -5,7 +5,10 @@
  */
 package monopoly;
 
+
 import java.util.List;
+import java.io.File;
+import java.io.IOException;
 
 /**
  *
@@ -13,18 +16,27 @@ import java.util.List;
  */
 public class Monopoly {
 
+    
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-       DBLoad MyLoad = new DBLoad();
+  
+    public static void main(String[] args) throws IOException 
+    {
+        SaveCSV app = new SaveCSV();
+        app.saveGameCsv("P1", "Car", 0);
+        File csvFie = new File("/Users/be0754kc/Documents/CS471/MonopolyDB.csv");
+        
+        System.out.println();
+        // TODO code application logic here
+        
+        DBLoad MyLoad = new DBLoad();
         
         List testList = MyLoad.savedGame("Players");
         
         for(int i=0; i < testList.size(); i++){
             System.out.println(testList.get(i));
         }
-        
     }
     
 }
