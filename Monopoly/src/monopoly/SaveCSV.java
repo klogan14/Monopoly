@@ -21,37 +21,32 @@ import java.util.Scanner;
  */
 public class SaveCSV 
 {
-    public  void saveGameCsv(String pName1,Square pLocation1,
-            String pName2, Square pLocation2) throws FileNotFoundException, IOException
+    public  void saveGameCsv(String pName1,Square pLocation1, int p1_Turn, String pName2, Square pLocation2, int p2_Turn, int round) throws FileNotFoundException, IOException
     {
         File dataFile = new File("/Users/be0754kc/NetBeansProjects/Monopoly/Monopoly/data.csv");
         FileWriter pw = new FileWriter(dataFile,true);
         Scanner scanner = new Scanner(dataFile);
-        //Path dataFilePath = (Path)dataFile.getPath();
-        int id = 0;
-        while(scanner.hasNext())
-        {
-            System.out.println(scanner.next());
-            id++;
-        }
+        
         StringBuilder sb = new StringBuilder();
         //sb.append("PlayerName,Location");
         //sb.append('\n');
-        sb.append('\n');
-        sb.append(id);
-        sb.append(", ");
         sb.append(pName1);
         sb.append(", ");
         sb.append(pLocation1.getIndex());
+        sb.append(", ");
+        sb.append(p1_Turn);
+
         sb.append('\n');
 
-        sb.append(id);
-        sb.append(", ");
         sb.append(pName2);
         sb.append(", ");
-        sb.append(pLocation2.getIndex());
+        sb.append(pLocation2.getIndex());   
+        sb.append(", ");
+        sb.append(p2_Turn);
         sb.append('\n');
-        
+        sb.append(round);
+        sb.append('\n');
+
         pw.write(sb.toString());
         pw.close();
         System.out.println("done!");
@@ -59,4 +54,5 @@ public class SaveCSV
 //        lines.set(pLocation, pName);
 //        System.out.println("File" + lines.toString());
     }
+
 }
