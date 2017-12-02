@@ -8,19 +8,26 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+//This is our Singleton design pattern 
+
 public class MonopolyGame {
     private static final int ROUNDS_TOTAL = 20;
     private static final int PLAYERS_TOTAL = 2;
     private List players = new ArrayList(PLAYERS_TOTAL);
     private Board board = new Board();
     private Die[] dice = {new Die(), new Die()};
-    
+
+    private int roundsPlayed = 0;
     private MonopolyGame(){
         Player p;
         p = new Player("Horse", dice, board);
         players.add(p);
         p = new Player("Car", dice, board);
         players.add(p);
+    }
+    public void setRoundsPlayed(int round)
+    {
+        this.roundsPlayed = round;
     }
     
     private static class MonopolyGameInstance{
@@ -31,6 +38,11 @@ public class MonopolyGame {
         return MonopolyGameInstance.INSTANCE;
     }
     
+
+    public int getRoundsPlayed()
+    {
+        return this.roundsPlayed;
+    }
     public void playGame(){
         for(int i = 0; i < ROUNDS_TOTAL; i++){
             playRound();

@@ -12,11 +12,21 @@ public class Player {
     private Die[] dice;
     private int playerTurn;
     
-    public Player( String name, Die[] dice, Board board){
+    public Player(String name, Die[] dice, Board board){
         this.name = name;
         this.dice = dice;
         this.board = board;
-        piece = new Piece(board.getStartSquare());
+        this.piece = new Piece(board.getStartSquare());
+    }
+    
+    public void setplayerTurn(int turn)
+    {
+        this.playerTurn = turn;
+    }
+    
+    public int getPlayerTurn()
+    {
+        return this.playerTurn;
     }
     
     public void takeTurn(){
