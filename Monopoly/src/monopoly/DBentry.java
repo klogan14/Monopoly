@@ -112,11 +112,9 @@ public class DBentry
 		try 
 		{
 			
-			//System.out.println("UserName & Pass"+user + " " + pass+firstName + " " + lastName);
-			//pass = PWCrypto.encrypt(pass);
-			//System.out.println("Encrypted Pass: "+pass);
 			
-			instance.DBentry("INSERT INTO Lab6.lab6 (`UserName`, `Password`, `FirstName`, `LastName`) " +
+			
+			instance.DBentry("INSERT INTO MonopolyDB.MonopolyGame (`Piece`, `Location`, `PlayerTurn`, `Round`) " +
 								"VALUES ( '"+user+"' ,'"+pass+"' ,'"+firstName+ "' ,'"+ lastName +"');");	
 			
 			//System.out.println("After insert statement ");

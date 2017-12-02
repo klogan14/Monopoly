@@ -20,12 +20,14 @@ public class DBLoad implements LoadGame{
     @Override
     public List loadGame(String filename) {
         List players = new ArrayList();
-        String url = "jdbc:sqlite:C:\\Users\\John\\Monopoly\\Monopoly\\Players";
+        String url = "jdbc:sqlite:C:\\Users\\John\\Monopoly\\Monopoly\\Players"; // database location
+        String url2="jdbc:mysql://localhost:3306";
         Connection conn = null;
-        java.sql.Statement stmt = null;
+        java.sql.Statement stmt = null; 
         String query = "select *  from " + filename;
         
         try {
+            //"com.mysql.jdbc.Driver"
             Class.forName("org.sqlite.JDBC");  
             conn = DriverManager.getConnection(url);
         } 
