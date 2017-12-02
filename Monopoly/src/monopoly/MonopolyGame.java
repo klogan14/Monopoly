@@ -15,12 +15,20 @@ public class MonopolyGame {
     private Board board = new Board();
     private Die[] dice = {new Die(), new Die()};
     
-    public MonopolyGame(){
+    private MonopolyGame(){
         Player p;
         p = new Player("Horse", dice, board);
         players.add(p);
         p = new Player("Car", dice, board);
         players.add(p);
+    }
+    
+    private static class MonopolyGameInstance{
+        private static final MonopolyGame INSTANCE = new MonopolyGame();
+    }   
+    
+    public static MonopolyGame getMonopolyGame(){
+        return MonopolyGameInstance.INSTANCE;
     }
     
     public void playGame(){

@@ -18,12 +18,12 @@ import java.util.logging.Logger;
 public class DBLoad implements LoadGame{
 
     @Override
-    public List savedGame(String filename) {
+    public List loadGame(String filename) {
         List players = new ArrayList();
-        String url = "jdbc:sqlite:C:\\Users\\John\\Monopoly\\Monopoly" + filename;
+        String url = "jdbc:sqlite:C:\\Users\\John\\Monopoly\\Monopoly\\Players";
         Connection conn = null;
         java.sql.Statement stmt = null;
-        String query = "select *  from Players";
+        String query = "select *  from " + filename;
         
         try {
             Class.forName("org.sqlite.JDBC");  
@@ -47,10 +47,11 @@ public class DBLoad implements LoadGame{
             stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while(rs.next()){
-                players.add(rs.getString("name"));
-                players.add(rs.getString("piece"));
-                players.add(rs.getString("location"));
+                players.add(rs.getString("Piece"));
+                players.add(rs.getString("Location"));
+                players.add(rs.getString("Turn"));
             }
+            players.add(rs.getString("Round"));
         }
         catch(SQLException e){
             System.out.println("query didnt work");

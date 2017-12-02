@@ -32,8 +32,19 @@ public class Board {
     }
     
     private void build(int i){
-        Square s = new Square("Square " + i, i-1);
-        squares.add(s);
+        
+        if(i == 0){
+            Square s = new goSquare();
+            squares.add(s);
+        }
+        
+        else{
+            Square s = new regularSquare(i);
+            squares.add(s);
+        }
+//        use Factory design pattern to replace this code
+//        Square s = new Square("Square " + i, i-1);
+//        squares.add(s);
     }
     
     private void linkSquares(){

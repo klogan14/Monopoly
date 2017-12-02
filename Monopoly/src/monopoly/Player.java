@@ -10,8 +10,9 @@ public class Player {
     private Piece piece;
     private Board board;
     private Die[] dice;
+    private int playerTurn;
     
-    public Player(String name, Die[] dice, Board board){
+    public Player( String name, Die[] dice, Board board){
         this.name = name;
         this.dice = dice;
         this.board = board;
@@ -35,6 +36,14 @@ public class Player {
     
     public String getName(){
         return name;
+    }
+    
+    public void setTurn(int turn){
+        playerTurn = turn;
+    }
+    
+    public int getTurn(){
+        return playerTurn;
     }
     
 }

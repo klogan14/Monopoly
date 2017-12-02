@@ -12,9 +12,9 @@ public interface LoadGame {
     /**
      *
      * @param filename this will be name that the game was saved as
-     * @return a String array that contains the names, piece names, and locations of the players. 
+     * @return a String array that contains piece names, locations, whose turn, and number of rounds played. 
      * Each piece of data should be stored in individual array blocks. 
      */
-    public List savedGame(String filename);
+    public List loadGame(String filename);
     
 }

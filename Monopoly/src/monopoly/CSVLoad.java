@@ -19,12 +19,12 @@ import java.util.logging.Logger;
 public class CSVLoad implements LoadGame{
 
     @Override
-    public List savedGame(String filename) {
+    public List loadGame(String filename) {
         String data;
         List players = new ArrayList();
         
         try {
-            BufferedReader load = new BufferedReader(new FileReader(filename));
+            BufferedReader load = new BufferedReader(new FileReader("C:/Users/John/Monopoly/Monopoly/" + filename + ".csv"));
     
             while((data = load.readLine()) != null && !data.isEmpty()){
                 String [] temp = data.split(",");
@@ -42,22 +42,7 @@ public class CSVLoad implements LoadGame{
         catch (IOException ex) {
             Logger.getLogger(CSVLoad.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        
-//        
-//        File game = new File(filename);
-//        try {
-//            Scanner loading = new Scanner(game);
-//            while(loading.hasNext()){
-//                String read = loading.next();
-//                String [] players = read.split(",");
-//            
-//            }
-//            
-//        } 
-//        catch (FileNotFoundException ex) {
-//            Logger.getLogger(CSVLoad.class.getName()).log(Level.SEVERE, null, ex);
-//            System.out.println("Can't find file: " + filename);
-//        }
+        
     return players;
     }
 }

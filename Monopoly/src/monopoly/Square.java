@@ -5,7 +5,7 @@
  */
 package monopoly;
 
-public class Square {
+public abstract class Square {
     private String name;
     private Square nextSquare;
     private int index;

@@ -22,7 +22,7 @@ public class SaveCSV
 {
     public  void saveGameCsv(String pName, String pPiece, int pLocation) throws FileNotFoundException, IOException
     {
-        File dataFile = new File("/Users/be0754kc/NetBeansProjects/Monopoly/Monopoly/data.csv");
+        File dataFile = new File("/Users/John/Monopoly/Monopoly/data.csv");
         PrintWriter pw = new PrintWriter(dataFile);
         Scanner scanner = new Scanner(dataFile);
         //Path dataFilePath = (Path)dataFile.getPath();
