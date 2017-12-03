@@ -49,11 +49,15 @@ public class Monopoly {
 //        app.saveGameCsv("P1", "Car", 0);
 //        File csvFie = new File("/Users/be0754kc/Documents/CS471/MonopolyDB.csv");
         
-//        System.out.println();
-//        // TODO code application logic here
-//        System.out.println("database loading...");
-//        DBLoad MyLoad = new DBLoad();
-//        List testList = MyLoad.loadGame("Game1");
+        System.out.println();
+        // TODO code application logic here
+        System.out.println("database loading...");
+        DBLoad MyLoad = new DBLoad();
+        List testList = MyLoad.loadGame("Game1");
+        for(int i=0;i<testList.size();i++){
+            System.out.println(testList.get(i));
+        }
+        
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Would you like to play a new game or load an old one?"
@@ -102,7 +106,7 @@ public class Monopoly {
         MonopolyGame mp =  MonopolyGame.getMonopolyGame();
         List<Player> players = mp.getPlayers();
         int roundsPlayed = 0;
-        while(!input.equals("END") || roundsPlayed > 20/* OR playedRounds ==20*/)
+        while(!input.equals("END") || roundsPlayed > 20)
         {
             System.out.println("Player one enter PLAY to take a turn or END to end the game");
             input = scan.nextLine();
@@ -152,12 +156,13 @@ public class Monopoly {
                     System.out.println("p1 turn " +players.get(0).getPlayerTurn());
                     System.out.println("p2 turn " +players.get(1).getPlayerTurn());
                     //System.exit(0);
+                    System.out.println("input= " + input.toString());
                 }
             
             if(input.equals("PLAY"))
             {
-                mp.setRoundsPlayed(roundsPlayed);
                 roundsPlayed++;
+                mp.setRoundsPlayed(roundsPlayed);     
             }
             
         }
@@ -174,13 +179,15 @@ public class Monopoly {
 
 //File csvFie = new File("/Users/be0754kc/Documents/CS471/MonopolyDB.csv");
         
-//        System.out.println();
-//
-//        System.out.println("csv loading...");
-//        CSVLoad csv = new CSVLoad();
-//        List testList1 = csv.loadGame("data");
-//        
-//     
+        System.out.println();
+
+        System.out.println("csv loading...");
+        CSVLoad csv = new CSVLoad();
+        List testList1 = csv.loadGame("data");
+        for(int i=0;i<testList1.size();i++){
+            System.out.println(testList1.get(i));
+        }
+     
         
         
     }
