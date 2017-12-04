@@ -17,14 +17,14 @@ public class MonopolyGame {
     private Board board = new Board();
     private Die[] dice = {new Die(), new Die()};
 
-    private int roundsPlayed = 0;
+    public int roundsPlayed = 0;
     private MonopolyGame(){
         Player p;
         p = new Player("Horse", dice, board);
-        p.setTurn(1);
+        p.setPlayerTurn(1);
         players.add(p);
         p = new Player("Car", dice, board);
-        p.setTurn(0);
+        p.setPlayerTurn(0);
         players.add(p);
     }
     
@@ -46,21 +46,42 @@ public class MonopolyGame {
         roundsPlayed = Integer.parseInt(gameInfo.get(7).toString());
     }
     
-    public void loadingGameCSV(){
+    public void loadingGameCSV()
+    {
+        
+        
         CSVLoad game = new CSVLoad();
         List gameInfo = new ArrayList();
         gameInfo = game.loadGame("game1");
         Player p;
-        p = new Player(gameInfo.get(0).toString(),dice, board);
-        int locIndex = Integer.parseInt(gameInfo.get(1).toString());
-        int turnIndex = Integer.parseInt(gameInfo.get(2).toString());
-        p.setLocation(locIndex);
-        p.setTurn(locIndex);
+        players.remove(0);
+//        p = new Player(gameInfo.get(0).toString(),dice, board);
         p = new Player(gameInfo.get(3).toString(),dice, board);
-        locIndex = Integer.parseInt(gameInfo.get(4).toString());
-        turnIndex = Integer.parseInt(gameInfo.get(5).toString());
+        
+        int locIndex = Integer.parseInt(gameInfo.get(4).toString());
+        int turnIndex = Integer.parseInt(gameInfo.get(5).toString());
+
+//        int locIndex = Integer.parseInt(gameInfo.get(1).toString());
+//        int turnIndex = Integer.parseInt(gameInfo.get(2).toString());
         p.setLocation(locIndex);
-        p.setTurn(locIndex);
+        p.setTurn(turnIndex);
+        System.out.println("player "+p.getName() +" turn " + p.getPlayerTurn() );
+
+        players.add(p);
+        
+        
+        players.remove(0);
+        p = new Player(gameInfo.get(0).toString(),dice, board);
+        locIndex = Integer.parseInt(gameInfo.get(1).toString());
+        turnIndex = Integer.parseInt(gameInfo.get(2).toString());
+       //p = new Player(gameInfo.get(3).toString(),dice, board);
+       // locIndex = Integer.parseInt(gameInfo.get(4).toString());
+       // turnIndex = Integer.parseInt(gameInfo.get(5).toString());
+        p.setLocation(locIndex);
+        p.setTurn(turnIndex);
+        System.out.println("player "+p.getName() +" turn " + p.getPlayerTurn() );
+        players.add(p);
+
         roundsPlayed = Integer.parseInt(gameInfo.get(6).toString());
     }
     

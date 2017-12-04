@@ -9,6 +9,7 @@ package monopoly;
  *
  * @author gk4684sk
  */
-public class Test {
+public class Test 
+{
     
 }

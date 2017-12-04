@@ -125,13 +125,13 @@ public void gameSelect(){
             {
                System.out.println("Entered DB");
                mpNew.loadingGameDB();
-               playGame();
+               playGame(mpNew);
             }
             else if(input.equals("CSV"))
             {
                 System.out.println("Entered CSV");
                 mpNew.loadingGameCSV(); 
-                playGame();
+                playGame(mpNew);
             }
             else
             {
@@ -146,30 +146,43 @@ public void gameSelect(){
         }
     }
 
-    public void playGame(){
+    public void playGame(MonopolyGame game)
+    {
         String input = "";
         Scanner play1 = new Scanner(System.in);
         Scanner play2 = new Scanner(System.in);
-        MonopolyGame mp =  MonopolyGame.getMonopolyGame();
-        List<Player> players = mp.getPlayers();
+        //MonopolyGame mp =  MonopolyGame.getMonopolyGame();
+        List<Player> players = game.getPlayers();
+        
         SaveCSV saveCSV = new SaveCSV();
         SaveCSVAdpater saveCSVAdapater = new SaveCSVAdpater(saveCSV); //adapater implementation
-        int roundsPlayed = mp.getRoundsPlayed();
+       System.out.println("RoundsPlayed form loaded game: " + game.getRoundsPlayed());
+       //System.out.println("RoundsPlayed form loaded game: " + players.get(0);
+
+        game.setRoundsPlayed(game.getRoundsPlayed());
+        int roundsPlayed = game.getRoundsPlayed();
         DBentry dbEntry = new DBentry();
 
         
-        while(roundsPlayed < 20)
+        System.out.println("Player1 = " + players.get(0).getName()+ " & turn is " + players.get(0).getTurn());
+        System.out.println("Player2= " + players.get(1).getName()+ " & turn is " + players.get(1).getTurn());
+        
+       // int tempTurnPlayer2 = players.get(1).getTurn();
+      //  players.get(1).setPlayerTurn( players.get(0).getTurn());
+      //  players.get(0).setPlayerTurn( tempTurnPlayer2);
+
+        while(!input.equals("END") || roundsPlayed > 20)
         {
             if(players.get(0).getPlayerTurn() == 1)
             {
-                    System.out.println("Player one enter PLAY to take a turn or END to end the game");
+                    System.out.println("Player "+players.get(0).getName()+" enter PLAY to take a turn or END to end the game");
                     input = play1.nextLine();
                 
                     if(input.equals("PLAY"))  
                     {
                         players.get(0).takeTurn();
-                        players.get(0).setplayerTurn(0);
-                        players.get(1).setplayerTurn(1);
+                        players.get(0).setPlayerTurn(0);
+                        players.get(1).setPlayerTurn(1);
                     
                     }
                     else if(input.equals("END"))
@@ -179,13 +192,119 @@ public void gameSelect(){
                         System.out.println("p1 turn " +players.get(0).getPlayerTurn());
                         System.out.println("p2 turn " +players.get(1).getPlayerTurn());
                     }
-            
-                    if(input.equals("PLAY"))
+
+                    try 
                     {
-                        roundsPlayed++;
-                        mp.setRoundsPlayed(roundsPlayed);
+                    saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
+                            players.get(1).getName(),  players.get(1).getLocation(), players.get(1).getPlayerTurn(),game.getRoundsPlayed());
+                    } 
+                    catch (IOException ex)
+                    {
+                        Logger.getLogger(Monopoly.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
+                    dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), game.getRoundsPlayed());
+            }
+            //if(players.get(1).getPlayerTurn() == 1)
+                else
+            {    
+                    System.out.println("Player "+players.get(1).getName()+" enter PLAY to take a turn or END to end the game");
+                    System.out.println("It worked");
+                    input = play1.nextLine();
+                
+                    if(input.equals("PLAY"))  
+                    {
+                        players.get(1).takeTurn();
+                        players.get(0).setPlayerTurn(1);
+                        players.get(1).setPlayerTurn(0);
+
+                        System.out.println("p1 turn " +players.get(0).getPlayerTurn());
+                        System.out.println("p2 turn " +players.get(1).getPlayerTurn());
+                        roundsPlayed++;
+                        game.setRoundsPlayed(roundsPlayed); 
+                    }
+                    else if(input.equals("END"))
+                    {
+                        System.out.println("You entered END");
+                        System.out.println("Exiting Game");
+                        System.out.println("p1 turn " +players.get(0).getPlayerTurn());
+                        System.out.println("p2 turn " +players.get(1).getPlayerTurn());
+                        System.exit(0);
+                    }
+                    else
+                    {
+                        System.out.println("You entered an incorrect selection....");
+                        System.out.println("Player one enter PLAY to take a turn or END to end the game");
+                        input = play2.next();
+                    } 
                     
+                    try 
+                    {
+                    saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
+                            players.get(1).getName(),  players.get(1).getLocation(), players.get(1).getPlayerTurn(),game.getRoundsPlayed());
+                    } 
+                    catch (IOException ex)
+                    {
+                        Logger.getLogger(Monopoly.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
+                    dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), game.getRoundsPlayed());
+
+            }
+
+                   
+        }
+                    if(input.equals("END"))
+                    {
+                        System.out.println("You entered END");
+                        System.out.println("Exiting Game");
+                        System.out.println("p1 turn " +players.get(0).getPlayerTurn());
+                        System.out.println("p2 turn " +players.get(1).getPlayerTurn());
+                        System.exit(0);
+                    }
+    }
+    
+    
+    public void playGame()
+    {
+        String input = "";
+        Scanner play1 = new Scanner(System.in);
+        Scanner play2 = new Scanner(System.in);
+        MonopolyGame mp =  MonopolyGame.getMonopolyGame();
+        List<Player> players = mp.getPlayers();
+        
+        SaveCSV saveCSV = new SaveCSV();
+        SaveCSVAdpater saveCSVAdapater = new SaveCSVAdpater(saveCSV); //adapater implementation
+        int roundsPlayed = mp.getRoundsPlayed();
+        DBentry dbEntry = new DBentry();
+
+        
+        System.out.println("Player1 = " + players.get(0).getName()+ " & turn is " + players.get(0).getTurn());
+        System.out.println("Player2= " + players.get(1).getName()+ " & turn is " + players.get(1).getTurn());
+        
+        
+        while(!input.equals("END") || roundsPlayed < 20)
+        {
+            if(players.get(0).getPlayerTurn() == 1)
+            {
+                    System.out.println("Player one enter PLAY to take a turn or END to end the game");
+                    input = play1.nextLine();
+                
+                    if(input.equals("PLAY"))  
+                    {
+                        players.get(0).takeTurn();
+                        players.get(0).setPlayerTurn(0);
+                        players.get(1).setPlayerTurn(1);
+                    
+                    }
+                    else if(input.equals("END"))
+                    {
+                        System.out.println("You entered END");
+                        System.out.println("Exiting Game");
+                        System.out.println("p1 turn " +players.get(0).getPlayerTurn());
+                        System.out.println("p2 turn " +players.get(1).getPlayerTurn());
+                    }
+
                     try 
                     {
                     saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
@@ -195,8 +314,11 @@ public void gameSelect(){
                     {
                         Logger.getLogger(Monopoly.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), mp.getRoundsPlayed());
+                    dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), mp.getRoundsPlayed());
             }
-            else
+           // else if(players.get(1).getPlayerTurn() == 1)
+                else
             {    
                     System.out.println("Player two enter PLAY to take a turn or END to end the game");
                     input = play1.nextLine();
@@ -204,8 +326,8 @@ public void gameSelect(){
                     if(input.equals("PLAY"))  
                     {
                         players.get(1).takeTurn();
-                        players.get(0).setplayerTurn(1);
-                        players.get(1).setplayerTurn(0);
+                        players.get(0).setPlayerTurn(1);
+                        players.get(1).setPlayerTurn(0);
 
                         System.out.println("p1 turn " +players.get(0).getPlayerTurn());
                         System.out.println("p2 turn " +players.get(1).getPlayerTurn());
@@ -236,26 +358,13 @@ public void gameSelect(){
                     {
                         Logger.getLogger(Monopoly.class.getName()).log(Level.SEVERE, null, ex);
                     }
-            }
-        
-        
-        
-        
-                    System.out.println("FOR NEXT GAME p1 turn " +players.get(0).getPlayerTurn());
-                    System.out.println("FOR NEXT GAME p2 turn " +players.get(1).getPlayerTurn());
-                    try 
-                    {
-                    saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
-                            players.get(1).getName(),  players.get(1).getLocation(), players.get(1).getPlayerTurn(),mp.getRoundsPlayed());
-                    } 
-                    catch (IOException ex)
-                    {
-                        Logger.getLogger(Monopoly.class.getName()).log(Level.SEVERE, null, ex);
-                    }
                     dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), mp.getRoundsPlayed());
                     dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), mp.getRoundsPlayed());
 
-}
+            }
+
+                   
+        }
                     if(input.equals("END"))
                     {
                         System.out.println("You entered END");
@@ -264,7 +373,7 @@ public void gameSelect(){
                         System.out.println("p2 turn " +players.get(1).getPlayerTurn());
                         System.exit(0);
                     }
-            }
+    }
 }
 //File csvFie = new File("/Users/be0754kc/Documents/CS471/MonopolyDB.csv");
         
