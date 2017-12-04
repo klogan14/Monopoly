@@ -37,6 +37,7 @@ public class MonopolyGameBoard1 extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         textDisplayArea = new javax.swing.JTextPane();
         BoardImage = new javax.swing.JLabel();
+        startButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Monopoly Game");
@@ -59,6 +60,14 @@ public class MonopolyGameBoard1 extends javax.swing.JFrame {
         BoardImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/monopoly/board.jpg"))); // NOI18N
         BoardImage.setOpaque(true);
 
+        startButton.setFont(new java.awt.Font("Wide Latin", 1, 36)); // NOI18N
+        startButton.setText("Update");
+        startButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -70,18 +79,27 @@ public class MonopolyGameBoard1 extends javax.swing.JFrame {
                         .addComponent(rollButton, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BoardImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(BoardImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(121, 121, 121))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(rollButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(BoardImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(BoardImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(53, 53, 53))
         );
 
         pack();
@@ -90,6 +108,28 @@ public class MonopolyGameBoard1 extends javax.swing.JFrame {
     private void rollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rollButtonActionPerformed
         playGame(mpNew);
     }//GEN-LAST:event_rollButtonActionPerformed
+
+    private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
+        // TODO add your handling code here:
+        List<Player> players = mpNew.getPlayers();
+        
+        Player p;
+        if(players.get(0).getPlayerTurn() > players.get(1).getPlayerTurn())
+        {
+            p =  players.get(0);
+        }
+        else
+        {
+            p =  players.get(1);
+        }
+        
+        this.textDisplayArea.setText(/*"Player "+players.get(0).getName()+ " turn, number of rounds: " + mpNew.getRoundsPlayed() + "\n " + */
+                        "Player "+players.get(0).getName()+" Location: " + players.get(0).getLocation().getIndex() + "\n "
+                        +"Player "+players.get(1).getName()+" Location: " + players.get(1).getLocation().getIndex() + "\n "
+                        + "It is player " + p.getName() + "'s turn" +
+                                "Round: " + mpNew.getRoundsPlayed());
+        
+    }//GEN-LAST:event_startButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -134,6 +174,7 @@ public class MonopolyGameBoard1 extends javax.swing.JFrame {
     private javax.swing.JLabel BoardImage;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton rollButton;
+    private javax.swing.JButton startButton;
     private javax.swing.JTextPane textDisplayArea;
     // End of variables declaration//GEN-END:variables
 
@@ -147,16 +188,17 @@ public void playGame(MonopolyGame game)
         game.setRoundsPlayed(game.getRoundsPlayed());
         int roundsPlayed = game.getRoundsPlayed();
         DBentry dbEntry = new DBentry();
-
-        this.textDisplayArea.setText("Player "+players.get(0).getName()+ " turn, number of rounds: " + game.getRoundsPlayed() + "\n "
-                        +"Player "+players.get(0).getName()+" Location" + players.get(0).getLocation().getIndex() + "\n "
-                        +"Player "+players.get(1).getName()+" Location" + players.get(1).getLocation().getIndex());
-        
+//
+//        this.textDisplayArea.setText("Player "+players.get(0).getName()+ " turn, number of rounds: " + game.getRoundsPlayed() + "\n "
+//                        +"Player "+players.get(0).getName()+" Location" + players.get(0).getLocation().getIndex() + "\n "
+//                        +"Player "+players.get(1).getName()+" Location" + players.get(1).getLocation().getIndex());
+//        
         if(roundsPlayed < game.getRoundsTotal()){
             if(players.get(0).getPlayerTurn() == 1){
                 this.textDisplayArea.setText("Player "+players.get(0).getName()+ " turn, number of rounds: " + game.getRoundsPlayed() + "\n "
-                        +"Player "+players.get(0).getName()+" Location" + players.get(0).getLocation().getIndex() + "\n "
-                        +"Player "+players.get(1).getName()+" Location" + players.get(1).getLocation().getIndex());
+                        +"Player "+players.get(0).getName()+" Location: " + players.get(0).getLocation().getIndex() + "\n "
+                        +"Player "+players.get(1).getName()+" Location: " + players.get(1).getLocation().getIndex()
+                        );
              //   this.textDisplayArea.setText("Player "+players.get(0).getName()+" Location" + players.get(0).getLocation().getIndex());
              //   this.textDisplayArea.setText("Player "+players.get(1).getName()+" Location" + players.get(1).getLocation().getIndex());
                 players.get(0).takeTurn();
@@ -177,8 +219,9 @@ public void playGame(MonopolyGame game)
             
             else{    
                 this.textDisplayArea.setText("Player "+players.get(1).getName()+ " turn, number of rounds: " + game.getRoundsPlayed() + "\n "
-                        +"Player "+players.get(0).getName()+" Location" + players.get(0).getLocation().getIndex() + "\n "
-                        +"Player "+players.get(1).getName()+" Location" + players.get(1).getLocation().getIndex());
+                        +"Player "+players.get(0).getName()+" Location: " + players.get(0).getLocation().getIndex() + "\n "
+                        +"Player "+players.get(1).getName()+" Location: " + players.get(1).getLocation().getIndex()
+                        );
 
 
                 players.get(1).takeTurn();
