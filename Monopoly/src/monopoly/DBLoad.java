@@ -15,7 +15,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DBLoad implements LoadGame{
+public class DBLoad implements LoadGame
+{
 
     @Override
     public List loadGame(String filename) {

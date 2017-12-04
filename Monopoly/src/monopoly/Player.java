@@ -44,6 +44,10 @@ public class Player {
         return piece.getLocation();
     }
     
+    public void setLocation(int i){
+        piece.setLocation((Square)board.getSquare(piece.getLocation(), i));
+    }
+    
     public String getName(){
         return name;
     }

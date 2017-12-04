@@ -25,7 +25,8 @@ public class DBentry
 	StringBuilder sb = new StringBuilder();
 	
 	//change URL to your database server as needed
-	String dbPath="jdbc:mysql://localhost:3306";
+	//String dbPath="jdbc:mysql://localhost:3306";
+        String dbPath="jdbc:sqlite:C:\\Users\\John\\Monopoly\\Monopoly\\Players";     //For John's pc
 	
 	public static DBentry getInstance() 
 	{
@@ -42,10 +43,11 @@ public class DBentry
 		try 
 		{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			
+			//Class.forName("org.sqlite.JDBC");   //running on John's pc
 			try 
 			{			
 				dbconn = DriverManager.getConnection(dbPath,"root","password");
+                                //dbconn = DriverManager.getConnection(dbPath);  //running on John's pc
 				//System.out.println("gain the connection");
 				return dbconn;
 			}
