@@ -21,10 +21,50 @@ public class MonopolyGame {
     private MonopolyGame(){
         Player p;
         p = new Player("Horse", dice, board);
+        p.setTurn(1);
         players.add(p);
         p = new Player("Car", dice, board);
+        p.setTurn(0);
         players.add(p);
     }
+    
+    public void loadingGameDB(){
+        DBLoad game = new DBLoad();
+        List gameInfo = new ArrayList();
+        gameInfo = game.loadGame("game1");
+        Player p;
+        p = new Player(gameInfo.get(0).toString(),dice, board);
+        int locIndex = Integer.parseInt(gameInfo.get(1).toString());
+        int turnIndex = Integer.parseInt(gameInfo.get(2).toString());
+        p.setLocation(locIndex);
+        p.setTurn(locIndex);
+        p = new Player(gameInfo.get(4).toString(),dice, board);
+        locIndex = Integer.parseInt(gameInfo.get(5).toString());
+        turnIndex = Integer.parseInt(gameInfo.get(6).toString());
+        p.setLocation(locIndex);
+        p.setTurn(locIndex);
+        roundsPlayed = Integer.parseInt(gameInfo.get(7).toString());
+    }
+    
+    public void loadingGameCSV(){
+        CSVLoad game = new CSVLoad();
+        List gameInfo = new ArrayList();
+        gameInfo = game.loadGame("game1");
+        Player p;
+        p = new Player(gameInfo.get(0).toString(),dice, board);
+        int locIndex = Integer.parseInt(gameInfo.get(1).toString());
+        int turnIndex = Integer.parseInt(gameInfo.get(2).toString());
+        p.setLocation(locIndex);
+        p.setTurn(locIndex);
+        p = new Player(gameInfo.get(3).toString(),dice, board);
+        locIndex = Integer.parseInt(gameInfo.get(4).toString());
+        turnIndex = Integer.parseInt(gameInfo.get(5).toString());
+        p.setLocation(locIndex);
+        p.setTurn(locIndex);
+        roundsPlayed = Integer.parseInt(gameInfo.get(6).toString());
+    }
+    
+    
     public void setRoundsPlayed(int round)
     {
         this.roundsPlayed = round;

@@ -38,17 +38,17 @@ public class SaveCSV
             //sb.append("PlayerName,Location");
             //sb.append('\n');
             sb.append(pName1);
-            sb.append(", ");
+            sb.append(",");
             sb.append(pLocation1.getIndex());
-            sb.append(", ");
+            sb.append(",");
             sb.append(p1_Turn);
             
             sb.append('\n');
             
             sb.append(pName2);
-            sb.append(", ");
+            sb.append(",");
             sb.append(pLocation2.getIndex());
-            sb.append(", ");
+            sb.append(",");
             sb.append(p2_Turn);
             sb.append('\n');
             sb.append(round);
