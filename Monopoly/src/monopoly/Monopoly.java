@@ -183,6 +183,8 @@ public void gameSelect(){
                     }
                     else if(input.equals("END"))
                     {
+                        System.out.println("TOP");
+
                         System.out.println("You entered END");
                         System.out.println("Exiting Game");
                         System.out.println("p1 turn " +players.get(0).getPlayerTurn());
@@ -201,8 +203,10 @@ public void gameSelect(){
                     dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
                     dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), game.getRoundsPlayed());
             }
-                else
-            {    
+            else
+            {
+                if(!input.equals("END"))
+                {
                     System.out.println("Player "+players.get(1).getName()+" enter PLAY to take a turn or END to end the game");
                     input = play1.nextLine();
                 
@@ -219,6 +223,7 @@ public void gameSelect(){
                     }
                     else if(input.equals("END"))
                     {
+                        System.out.println("Bottom");
                         System.out.println("You entered END");
                         System.out.println("Exiting Game");
                         System.out.println("p1 turn " +players.get(0).getPlayerTurn());
@@ -244,6 +249,8 @@ public void gameSelect(){
                     dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
                     dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), game.getRoundsPlayed());
 
+                }
+            
             }
 
                    
@@ -277,11 +284,11 @@ public void gameSelect(){
         System.out.println("Player2= " + players.get(1).getName()+ " & turn is " + players.get(1).getTurn());
         
         
-        while(!input.equals("END") || roundsPlayed < 20)
+        while(!input.equals("END") || roundsPlayed > 20)
         {
             if(players.get(0).getPlayerTurn() == 1)
             {
-                    System.out.println("Player  "+players.get(0).getName()+"  enter PLAY to take a turn or END to end the game");
+                    System.out.println("Player "+players.get(0).getName()+" enter PLAY to take a turn or END to end the game");
                     input = play1.nextLine();
                 
                     if(input.equals("PLAY"))  
@@ -293,6 +300,8 @@ public void gameSelect(){
                     }
                     else if(input.equals("END"))
                     {
+                        System.out.println("TOP");
+
                         System.out.println("You entered END");
                         System.out.println("Exiting Game");
                         System.out.println("p1 turn " +players.get(0).getPlayerTurn());
@@ -311,10 +320,11 @@ public void gameSelect(){
                     dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), mp.getRoundsPlayed());
                     dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), mp.getRoundsPlayed());
             }
-           // else if(players.get(1).getPlayerTurn() == 1)
-                else
-            {    
-                    System.out.println("Player  "+players.get(1).getName()+"  enter PLAY to take a turn or END to end the game");
+            else
+            {
+                if(!input.equals("END"))
+                {
+                    System.out.println("Player "+players.get(1).getName()+" enter PLAY to take a turn or END to end the game");
                     input = play1.nextLine();
                 
                     if(input.equals("PLAY"))  
@@ -330,6 +340,7 @@ public void gameSelect(){
                     }
                     else if(input.equals("END"))
                     {
+                        System.out.println("Bottom");
                         System.out.println("You entered END");
                         System.out.println("Exiting Game");
                         System.out.println("p1 turn " +players.get(0).getPlayerTurn());
@@ -339,7 +350,7 @@ public void gameSelect(){
                     else
                     {
                         System.out.println("You entered an incorrect selection....");
-                        System.out.println("Player  "+players.get(1).getName()+"  enter PLAY to take a turn or END to end the game");
+                        System.out.println("Player one enter PLAY to take a turn or END to end the game");
                         input = play2.next();
                     } 
                     
@@ -355,18 +366,20 @@ public void gameSelect(){
                     dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), mp.getRoundsPlayed());
                     dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), mp.getRoundsPlayed());
 
-            }
-
-                   
+                }
+            
+            }//end if picking btw p1 or p2 
+        }//end while
+        
+        
+        if(input.equals("END"))
+        {
+            System.out.println("You entered END");
+            System.out.println("Exiting Game");
+            System.out.println("p1 turn " +players.get(0).getPlayerTurn());
+            System.out.println("p2 turn " +players.get(1).getPlayerTurn());
+            System.exit(0);
         }
-                    if(input.equals("END"))
-                    {
-                        System.out.println("You entered END");
-                        System.out.println("Exiting Game");
-                        System.out.println("p1 turn " +players.get(0).getPlayerTurn());
-                        System.out.println("p2 turn " +players.get(1).getPlayerTurn());
-                        System.exit(0);
-                    }
     }
 }
 //File csvFie = new File("/Users/be0754kc/Documents/CS471/MonopolyDB.csv");
