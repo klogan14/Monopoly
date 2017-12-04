@@ -120,6 +120,7 @@ public class MonopolyGameBoard1 extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new MonopolyGameBoard1().setVisible(true);
             }
@@ -147,45 +148,49 @@ public void playGame(MonopolyGame game)
         int roundsPlayed = game.getRoundsPlayed();
         DBentry dbEntry = new DBentry();
 
-        while(roundsPlayed < 20)
-        {
+        if(roundsPlayed < game.getRoundsTotal()){
             if(players.get(0).getPlayerTurn() == 1){
-                this.textDisplayArea.setText("Player one's turn");
+                this.textDisplayArea.setText("Player one's turn, number of rounds: " + game.getRoundsPlayed());
                 players.get(0).takeTurn();
                 players.get(0).setPlayerTurn(0);
                 players.get(1).setPlayerTurn(1);
+                game.setPlayers(players); 
                  
-            try {
-                saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
-                players.get(1).getName(),  players.get(1).getLocation(), players.get(1).getPlayerTurn(),game.getRoundsPlayed());
-                dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
-                dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), game.getRoundsPlayed());
-            } 
-            catch (IOException ex){
-                Logger.getLogger(Monopoly.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+                try {
+                    saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
+                    players.get(1).getName(),  players.get(1).getLocation(), players.get(1).getPlayerTurn(),game.getRoundsPlayed());
+                    dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
+                    dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), game.getRoundsPlayed());
+                } 
+                catch (IOException ex){
+                    Logger.getLogger(Monopoly.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             
             else{    
-                this.textDisplayArea.setText("Player two's turn");
+                this.textDisplayArea.setText("Player two's turn, number of rounds: " + game.getRoundsPlayed());
                 players.get(1).takeTurn();
                 players.get(0).setPlayerTurn(1);
                 players.get(1).setPlayerTurn(0);
                 roundsPlayed++;
                 game.setRoundsPlayed(roundsPlayed); 
-            try{
-                saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
-                players.get(1).getName(),  players.get(1).getLocation(), players.get(1).getPlayerTurn(),game.getRoundsPlayed());
-                dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
-                dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), game.getRoundsPlayed());
-            } 
-            catch (IOException ex){
-                Logger.getLogger(Monopoly.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-
+                game.setPlayers(players); 
+                try{
+                    saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
+                    players.get(1).getName(),  players.get(1).getLocation(), players.get(1).getPlayerTurn(),game.getRoundsPlayed());
+                    dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
+                    dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), game.getRoundsPlayed());
+                } 
+                catch (IOException ex){
+                    Logger.getLogger(Monopoly.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }         
+        }
+        //Players have played the ROUNDS_TOTAL worth of turns so the game is now over
+        else{
+            this.textDisplayArea.setText("Game over, the max number of rounds that can be"
+                    + " played is " + game.getRoundsPlayed() + ". We hope you enjoyed our game!");
+            this.rollButton.setEnabled(false);
         }
     }
 
