@@ -148,9 +148,17 @@ public void playGame(MonopolyGame game)
         int roundsPlayed = game.getRoundsPlayed();
         DBentry dbEntry = new DBentry();
 
+        this.textDisplayArea.setText("Player "+players.get(0).getName()+ " turn, number of rounds: " + game.getRoundsPlayed() + "\n "
+                        +"Player "+players.get(0).getName()+" Location" + players.get(0).getLocation().getIndex() + "\n "
+                        +"Player "+players.get(1).getName()+" Location" + players.get(1).getLocation().getIndex());
+        
         if(roundsPlayed < game.getRoundsTotal()){
             if(players.get(0).getPlayerTurn() == 1){
-                this.textDisplayArea.setText("Player one's turn, number of rounds: " + game.getRoundsPlayed());
+                this.textDisplayArea.setText("Player "+players.get(0).getName()+ " turn, number of rounds: " + game.getRoundsPlayed() + "\n "
+                        +"Player "+players.get(0).getName()+" Location" + players.get(0).getLocation().getIndex() + "\n "
+                        +"Player "+players.get(1).getName()+" Location" + players.get(1).getLocation().getIndex());
+             //   this.textDisplayArea.setText("Player "+players.get(0).getName()+" Location" + players.get(0).getLocation().getIndex());
+             //   this.textDisplayArea.setText("Player "+players.get(1).getName()+" Location" + players.get(1).getLocation().getIndex());
                 players.get(0).takeTurn();
                 players.get(0).setPlayerTurn(0);
                 players.get(1).setPlayerTurn(1);
@@ -168,7 +176,11 @@ public void playGame(MonopolyGame game)
             }
             
             else{    
-                this.textDisplayArea.setText("Player two's turn, number of rounds: " + game.getRoundsPlayed());
+                this.textDisplayArea.setText("Player "+players.get(1).getName()+ " turn, number of rounds: " + game.getRoundsPlayed() + "\n "
+                        +"Player "+players.get(0).getName()+" Location" + players.get(0).getLocation().getIndex() + "\n "
+                        +"Player "+players.get(1).getName()+" Location" + players.get(1).getLocation().getIndex());
+
+
                 players.get(1).takeTurn();
                 players.get(0).setPlayerTurn(1);
                 players.get(1).setPlayerTurn(0);
