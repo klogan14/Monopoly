@@ -102,11 +102,13 @@ public class Monopoly {
         MonopolyGame mp =  MonopolyGame.getMonopolyGame();
         List<Player> players = mp.getPlayers();
         int roundsPlayed = 0;
-        while(!input.equals("END") || roundsPlayed > 20/* OR playedRounds ==20*/)
+        //input = scan.nextLine();
+
+        while(!input.equals("END") || roundsPlayed > 20)
         {
             System.out.println("Player one enter PLAY to take a turn or END to end the game");
             input = scan.nextLine();
-                //players.get(0).setplayerTurn(1);
+
                 if(input.equals("PLAY"))  
                 {
                     players.get(0).takeTurn();
@@ -125,8 +127,6 @@ public class Monopoly {
                     System.out.println("p1 turn " +players.get(0).getPlayerTurn());
                     System.out.println("p2 turn " +players.get(1).getPlayerTurn());
                     //players.get(1).setplayerTurn(1);
-
-                    //System.exit(0);
                 }
                 
             System.out.println("Player Two enter PLAY to take a turn or END to end the game");
@@ -151,25 +151,27 @@ public class Monopoly {
                     System.out.println("Exiting Game");
                     System.out.println("p1 turn " +players.get(0).getPlayerTurn());
                     System.out.println("p2 turn " +players.get(1).getPlayerTurn());
-                    //System.exit(0);
                 }
             
             if(input.equals("PLAY"))
             {
-                mp.setRoundsPlayed(roundsPlayed);
                 roundsPlayed++;
+                mp.setRoundsPlayed(roundsPlayed);
             }
-            
         }
+        
         SaveCSV saveCSV = new SaveCSV();
-        SaveCSVAdpater saveCSVAdapater = new SaveCSVAdpater(saveCSV);
-
+        SaveCSVAdpater saveCSVAdapater = new SaveCSVAdpater(saveCSV); //adapater implementation
+        DBentry dbEntry = new DBentry();
+        
         
         System.out.println("FOR NEXT GAME p1 turn " +players.get(0).getPlayerTurn());
         System.out.println("FOR NEXT GAME p2 turn " +players.get(1).getPlayerTurn());
         saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
                 players.get(1).getName(),  players.get(1).getLocation(), players.get(1).getPlayerTurn(),mp.getRoundsPlayed());
-        
+        dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), mp.getRoundsPlayed());
+        dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), mp.getRoundsPlayed());
+
 
 
 //File csvFie = new File("/Users/be0754kc/Documents/CS471/MonopolyDB.csv");

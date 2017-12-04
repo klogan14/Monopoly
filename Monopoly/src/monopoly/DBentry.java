@@ -36,10 +36,6 @@ public class DBentry
 		return instance;
 	}
 	
-	
-	
-	
-	
 	//Establish connection to MySQL server
 	public Connection newConnection() 
 	{
@@ -102,22 +98,13 @@ public class DBentry
 		}
 	}
 	
-	public boolean entry( String user, String pass, String firstName, String lastName) 
-	{
-		//Explore use of metadata pull out meta data essentially
-		//build multiple web pages, to allow user to enter different information
-		//encryption
-		//hibernate
-		
+	public boolean update( String piece, int location, int playerTurn, int round) 
+        {	
 		try 
 		{
-			
-			
-			
-			instance.DBentry("INSERT INTO MonopolyDB.MonopolyGame (`Piece`, `Location`, `PlayerTurn`, `Round`) " +
-								"VALUES ( '"+user+"' ,'"+pass+"' ,'"+firstName+ "' ,'"+ lastName +"');");	
-			
-			//System.out.println("After insert statement ");
+			instance.DBentry("UPDATE MonopolyDB.MonopolyGame\n" +
+                                        "SET Piece = '"+piece+"', Location = "+location+",PlayerTurn = "+playerTurn+", Round = "+round+"\n" +
+                                        "WHERE Piece = '"+piece+"';");	
 			return true;
 		}
 		catch ( Exception err ) 
@@ -126,35 +113,9 @@ public class DBentry
 			return false;
 		}
 	}
-	
-	public boolean userLookUp(String user, String pass) throws SQLException
-	{
-		boolean lookUp = false;
-		String query = "Select * from Lab6.lab6 where UserName = '" + user+ "';";
-		dbconn=instance.newConnection();
-		sql=dbconn.prepareStatement(query);
 
-		results=sql.executeQuery();
-		
-		while(results.next())
-		{
-			//System.out.println("while loop");
-			//System.out.println(results.getString("UserName"));
-			if(results.getString("UserName").contains(user) )
-			{
-				lookUp = true;
-				//System.out.println(lookUp);
-			}
-		}
-		
-		//System.out.println("query="+query);
-
-		dbconn.close();
-		return lookUp;
-		
-	}
 	public static void main(String[] args) 
 	{	
-		//instance.entry("Golf");
-	}
+
+        }
 }
