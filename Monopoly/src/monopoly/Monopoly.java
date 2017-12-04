@@ -192,24 +192,25 @@ public void gameSelect(){
                         catch (IOException ex){
                             Logger.getLogger(Monopoly.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                    
+     
                     }
-                    else if(input.equals("END"))
-                    {
+                    
+                    else if(input.equals("END")){
                         System.out.println("You entered END");
                         System.out.println("Exiting Game");
                         System.out.println(players.get(0).getName()+" turn " +players.get(0).getPlayerTurn());
                         System.out.println(players.get(1).getName()+" turn " +players.get(1).getPlayerTurn());
                         System.exit(0);
                     }
-    //This is not working correctly, need error handling to loop back to start of player two's turn. Currently skipping player two's turn.
+     //This is not working correctly, need error handling to loop back to start of player one's turn. Currently skipping player one's turn.                
                     else
                     {
                         System.out.println("You entered an incorrect selection....");
                         System.out.println("Player " + players.get(1).getName()+ " enter PLAY to take a turn or END to end the game");
-                        input = play2.next();
+                        input = play1.next();
                     } 
-            }         
+ 
+            }
         }
     }
 }

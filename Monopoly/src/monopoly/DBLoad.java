@@ -21,16 +21,22 @@ public class DBLoad implements LoadGame
     @Override
     public List loadGame(String filename) {
         List players = new ArrayList();
-        String url = "jdbc:sqlite:C:\\Users\\John\\Monopoly\\Monopoly\\Players"; // database location
-        String url2="jdbc:mysql://localhost:3306";
+        //String url = "jdbc:sqlite:C:\\Users\\John\\Monopoly\\Monopoly\\Players"; // database location
+        String url="jdbc:mysql://localhost:3306";
         Connection conn = null;
         java.sql.Statement stmt = null; 
+       /* kyle file NAme*/filename = "MonopolyDB.MonopolyGame;"; // kyle fileNAme
         String query = "select *  from " + filename;
         
+        //String jdbcType = "org.sqlite.JDBC";
+        String jdbcType = "com.mysql.jdbc.Driver";
+
         try {
             //"com.mysql.jdbc.Driver"
-            Class.forName("org.sqlite.JDBC");  
-            conn = DriverManager.getConnection(url);
+            Class.forName(jdbcType);  
+            //conn = DriverManager.getConnection(url);//Johns
+            conn = DriverManager.getConnection(url,"root","password");//Kyles
+
         } 
         catch (SQLException ex) {
             Logger.getLogger(DBLoad.class.getName()).log(Level.SEVERE, null, ex);
@@ -40,7 +46,7 @@ public class DBLoad implements LoadGame
         }
          
         try {
-            Class.forName("org.sqlite.JDBC");
+            Class.forName(jdbcType);
         } 
         catch (ClassNotFoundException e) {
             System.out.println("cannot load driver");
@@ -52,9 +58,9 @@ public class DBLoad implements LoadGame
             while(rs.next()){
                 players.add(rs.getString("Piece"));
                 players.add(rs.getString("Location"));
-                players.add(rs.getString("Turn"));
+                players.add(rs.getString("PlayerTurn"));
+                players.add(rs.getString("Round"));
             }
-            players.add(rs.getString("Round"));
         }
         catch(SQLException e){
             System.out.println("query didnt work");
