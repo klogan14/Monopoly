@@ -28,28 +28,27 @@ public class BoardGame extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        newGame = new javax.swing.JButton();
+        loadGame = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(610, 500));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
-        jButton1.setFont(new java.awt.Font("Algerian", 0, 24)); // NOI18N
-        jButton1.setLabel("START NEW GAME");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        newGame.setFont(new java.awt.Font("Algerian", 0, 36)); // NOI18N
+        newGame.setLabel("START NEW GAME");
+        newGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                newGameActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Algerian", 0, 24)); // NOI18N
-        jButton2.setText("LOAD GAME");
-        jButton2.setActionCommand("LOAD GAME");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        loadGame.setFont(new java.awt.Font("Algerian", 0, 36)); // NOI18N
+        loadGame.setText("LOAD GAME");
+        loadGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                loadGameActionPerformed(evt);
             }
         });
 
@@ -67,23 +66,23 @@ public class BoardGame extends javax.swing.JPanel {
                         .addGap(103, 103, 103)
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(188, 188, 188)
-                        .addComponent(jButton1))
+                        .addGap(127, 127, 127)
+                        .addComponent(newGame))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(215, 215, 215)
-                        .addComponent(jButton2)))
-                .addContainerGap(93, Short.MAX_VALUE))
+                        .addGap(178, 178, 178)
+                        .addComponent(loadGame)))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(60, 60, 60)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addGap(45, 45, 45)
+                .addComponent(newGame, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(loadGame, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -91,9 +90,9 @@ public class BoardGame extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(351, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1131, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,19 +103,21 @@ public class BoardGame extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void newGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newGameActionPerformed
+       MonopolyGameBoard1 boardScreen = new MonopolyGameBoard1();
+       boardScreen.setVisible(true);
+    }//GEN-LAST:event_newGameActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void loadGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadGameActionPerformed
+        LoadingGameScreen loadingScreen = new LoadingGameScreen();
+        loadingScreen.setVisible(true);
+    }//GEN-LAST:event_loadGameActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton loadGame;
+    private javax.swing.JButton newGame;
     // End of variables declaration//GEN-END:variables
 }
