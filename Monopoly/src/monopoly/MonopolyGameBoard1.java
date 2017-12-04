@@ -5,12 +5,18 @@
  */
 package monopoly;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author John
  */
 public class MonopolyGameBoard1 extends javax.swing.JFrame {
-
+    MonopolyGame mpNew = MonopolyGame.getMonopolyGame();
     /**
      * Creates new form MonopolyGameBoard1
      */
@@ -27,9 +33,9 @@ public class MonopolyGameBoard1 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        rollButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        textDisplayArea = new javax.swing.JTextPane();
         BoardImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -37,18 +43,18 @@ public class MonopolyGameBoard1 extends javax.swing.JFrame {
         setIconImages(null);
         setResizable(false);
 
-        jButton1.setFont(new java.awt.Font("Wide Latin", 1, 36)); // NOI18N
-        jButton1.setText("Roll");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        rollButton.setFont(new java.awt.Font("Wide Latin", 1, 36)); // NOI18N
+        rollButton.setText("Roll");
+        rollButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                rollButtonActionPerformed(evt);
             }
         });
 
-        jTextPane1.setEditable(false);
-        jTextPane1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jTextPane1.setText("Hello");
-        jScrollPane1.setViewportView(jTextPane1);
+        textDisplayArea.setEditable(false);
+        textDisplayArea.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        textDisplayArea.setText("Hello");
+        jScrollPane1.setViewportView(textDisplayArea);
 
         BoardImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/monopoly/board.jpg"))); // NOI18N
         BoardImage.setOpaque(true);
@@ -61,7 +67,7 @@ public class MonopolyGameBoard1 extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(148, 148, 148)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(rollButton, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -71,7 +77,7 @@ public class MonopolyGameBoard1 extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rollButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -81,9 +87,9 @@ public class MonopolyGameBoard1 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void rollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rollButtonActionPerformed
+        playGame(mpNew);
+    }//GEN-LAST:event_rollButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -118,12 +124,69 @@ public class MonopolyGameBoard1 extends javax.swing.JFrame {
                 new MonopolyGameBoard1().setVisible(true);
             }
         });
+        
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BoardImage;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JButton rollButton;
+    private javax.swing.JTextPane textDisplayArea;
     // End of variables declaration//GEN-END:variables
+
+public void playGame(MonopolyGame game)
+    {
+        List<Player> players = game.getPlayers();
+        
+        SaveCSV saveCSV = new SaveCSV();
+        SaveCSVAdpater saveCSVAdapater = new SaveCSVAdpater(saveCSV); //adapater implementation
+      
+        game.setRoundsPlayed(game.getRoundsPlayed());
+        int roundsPlayed = game.getRoundsPlayed();
+        DBentry dbEntry = new DBentry();
+
+        while(roundsPlayed < 20)
+        {
+            if(players.get(0).getPlayerTurn() == 1){
+                this.textDisplayArea.setText("Player one's turn");
+                players.get(0).takeTurn();
+                players.get(0).setPlayerTurn(0);
+                players.get(1).setPlayerTurn(1);
+                 
+            try {
+                saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
+                players.get(1).getName(),  players.get(1).getLocation(), players.get(1).getPlayerTurn(),game.getRoundsPlayed());
+                dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
+                dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), game.getRoundsPlayed());
+            } 
+            catch (IOException ex){
+                Logger.getLogger(Monopoly.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            }
+            
+            else{    
+                this.textDisplayArea.setText("Player two's turn");
+                players.get(1).takeTurn();
+                players.get(0).setPlayerTurn(1);
+                players.get(1).setPlayerTurn(0);
+                roundsPlayed++;
+                game.setRoundsPlayed(roundsPlayed); 
+            try{
+                saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
+                players.get(1).getName(),  players.get(1).getLocation(), players.get(1).getPlayerTurn(),game.getRoundsPlayed());
+                dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
+                dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), game.getRoundsPlayed());
+            } 
+            catch (IOException ex){
+                Logger.getLogger(Monopoly.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+
+            }         
+        }
+    }
+
 }

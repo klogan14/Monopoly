@@ -22,9 +22,9 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="351" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="1131" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -56,15 +56,15 @@
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="188" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="127" max="-2" attributes="0"/>
+                          <Component id="newGame" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="215" max="-2" attributes="0"/>
-                          <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="178" max="-2" attributes="0"/>
+                          <Component id="loadGame" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="93" max="32767" attributes="0"/>
+                  <EmptySpace pref="129" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -73,37 +73,36 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="71" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="jButton2" min="-2" pref="71" max="-2" attributes="0"/>
-                  <EmptySpace pref="66" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                  <Component id="newGame" min="-2" pref="71" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="loadGame" min="-2" pref="71" max="-2" attributes="0"/>
+                  <EmptySpace pref="89" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="newGame">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Algerian" size="24" style="0"/>
+              <Font name="Algerian" size="36" style="0"/>
             </Property>
             <Property name="label" type="java.lang.String" value="START NEW GAME"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newGameActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="loadGame">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Algerian" size="24" style="0"/>
+              <Font name="Algerian" size="36" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="LOAD GAME"/>
-            <Property name="actionCommand" type="java.lang.String" value="LOAD GAME"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loadGameActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
