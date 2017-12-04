@@ -5,12 +5,18 @@
  */
 package monopoly;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author John
  */
 public class MonopolyGameBoard1 extends javax.swing.JFrame {
-
+    MonopolyGame mpNew = MonopolyGame.getMonopolyGame();
     /**
      * Creates new form MonopolyGameBoard1
      */
@@ -82,7 +88,7 @@ public class MonopolyGameBoard1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rollButtonActionPerformed
-        // TODO add your handling code here:
+        playGame(mpNew);
     }//GEN-LAST:event_rollButtonActionPerformed
 
     /**
@@ -118,6 +124,9 @@ public class MonopolyGameBoard1 extends javax.swing.JFrame {
                 new MonopolyGameBoard1().setVisible(true);
             }
         });
+        
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -126,4 +135,58 @@ public class MonopolyGameBoard1 extends javax.swing.JFrame {
     private javax.swing.JButton rollButton;
     private javax.swing.JTextPane textDisplayArea;
     // End of variables declaration//GEN-END:variables
+
+public void playGame(MonopolyGame game)
+    {
+        List<Player> players = game.getPlayers();
+        
+        SaveCSV saveCSV = new SaveCSV();
+        SaveCSVAdpater saveCSVAdapater = new SaveCSVAdpater(saveCSV); //adapater implementation
+      
+        game.setRoundsPlayed(game.getRoundsPlayed());
+        int roundsPlayed = game.getRoundsPlayed();
+        DBentry dbEntry = new DBentry();
+
+        while(roundsPlayed < 20)
+        {
+            if(players.get(0).getPlayerTurn() == 1){
+                this.textDisplayArea.setText("Player one's turn");
+                players.get(0).takeTurn();
+                players.get(0).setPlayerTurn(0);
+                players.get(1).setPlayerTurn(1);
+                 
+            try {
+                saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
+                players.get(1).getName(),  players.get(1).getLocation(), players.get(1).getPlayerTurn(),game.getRoundsPlayed());
+                dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
+                dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), game.getRoundsPlayed());
+            } 
+            catch (IOException ex){
+                Logger.getLogger(Monopoly.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            }
+            
+            else{    
+                this.textDisplayArea.setText("Player two's turn");
+                players.get(1).takeTurn();
+                players.get(0).setPlayerTurn(1);
+                players.get(1).setPlayerTurn(0);
+                roundsPlayed++;
+                game.setRoundsPlayed(roundsPlayed); 
+            try{
+                saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
+                players.get(1).getName(),  players.get(1).getLocation(), players.get(1).getPlayerTurn(),game.getRoundsPlayed());
+                dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
+                dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), game.getRoundsPlayed());
+            } 
+            catch (IOException ex){
+                Logger.getLogger(Monopoly.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+
+            }         
+        }
+    }
+
 }
