@@ -26,7 +26,7 @@ public class SaveCSV
 {
     public  void saveGameCsv(String pName1,Square pLocation1, int p1_Turn, String pName2, Square pLocation2, int p2_Turn, int round) throws FileNotFoundException, IOException
     {
-
+        
         File dataFile = new File("/Users/be0754kc/NetBeansProjects/Monopoly/Monopoly/data.csv");
        // File dataFile = new File("C:/Users/John/Monopoly/Monopoly/data.csv");    // For John's pc
         BufferedReader file = new BufferedReader(new FileReader(dataFile));
@@ -43,15 +43,15 @@ public class SaveCSV
             sb.append(pLocation1.getIndex());
             sb.append(",");
             sb.append(p1_Turn);
-            
-            sb.append('\n');
+            sb.append(",");
             
             sb.append(pName2);
             sb.append(",");
             sb.append(pLocation2.getIndex());
             sb.append(",");
             sb.append(p2_Turn);
-            sb.append('\n');
+            sb.append(",");
+            //sb.append('\n');
             sb.append(round);
             sb.append('\n');
             

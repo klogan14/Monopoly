@@ -14,6 +14,9 @@ public class SaveCSVAdpater implements StoreGame
 {
     private SaveCSV adaptee;
     
+    /*
+        Adapter
+    */
     public SaveCSVAdpater(SaveCSV saveCsv)
     {
         this.adaptee = saveCsv;

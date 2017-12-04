@@ -10,7 +10,8 @@ import java.util.List;
 
 //This is our Singleton design pattern 
 
-public class MonopolyGame {
+public class MonopolyGame 
+{
     private static final int ROUNDS_TOTAL = 20;
     private static final int PLAYERS_TOTAL = 2;
     private List players = new ArrayList(PLAYERS_TOTAL);
@@ -18,6 +19,11 @@ public class MonopolyGame {
     private Die[] dice = {new Die(), new Die()};
 
     public int roundsPlayed = 0;
+    
+    /*
+        Singleton you can only get one intance
+    */
+    
     private MonopolyGame(){
         Player p;
         p = new Player("Horse", dice, board);
