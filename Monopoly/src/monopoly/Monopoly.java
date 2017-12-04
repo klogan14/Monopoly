@@ -156,9 +156,7 @@ public void gameSelect(){
         
         SaveCSV saveCSV = new SaveCSV();
         SaveCSVAdpater saveCSVAdapater = new SaveCSVAdpater(saveCSV); //adapater implementation
-       System.out.println("RoundsPlayed form loaded game: " + game.getRoundsPlayed());
-       //System.out.println("RoundsPlayed form loaded game: " + players.get(0);
-
+      
         game.setRoundsPlayed(game.getRoundsPlayed());
         int roundsPlayed = game.getRoundsPlayed();
         DBentry dbEntry = new DBentry();
@@ -167,9 +165,7 @@ public void gameSelect(){
         System.out.println("Player1 = " + players.get(0).getName()+ " & turn is " + players.get(0).getTurn());
         System.out.println("Player2= " + players.get(1).getName()+ " & turn is " + players.get(1).getTurn());
         
-       // int tempTurnPlayer2 = players.get(1).getTurn();
-      //  players.get(1).setPlayerTurn( players.get(0).getTurn());
-      //  players.get(0).setPlayerTurn( tempTurnPlayer2);
+      
 
         while(!input.equals("END") || roundsPlayed > 20)
         {
@@ -205,11 +201,9 @@ public void gameSelect(){
                     dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
                     dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), game.getRoundsPlayed());
             }
-            //if(players.get(1).getPlayerTurn() == 1)
                 else
             {    
                     System.out.println("Player "+players.get(1).getName()+" enter PLAY to take a turn or END to end the game");
-                    System.out.println("It worked");
                     input = play1.nextLine();
                 
                     if(input.equals("PLAY"))  
