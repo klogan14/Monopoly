@@ -34,53 +34,44 @@ public class MonopolyGame {
         gameInfo = game.loadGame("game1");
         Player p;
         players.remove(0);
-//        p = new Player(gameInfo.get(0).toString(),dice, board);
-        p = new Player(gameInfo.get(3).toString(),dice, board);
         
-        int locIndex = Integer.parseInt(gameInfo.get(4).toString());
-        int turnIndex = Integer.parseInt(gameInfo.get(5).toString());
+        
+        
+           p = new Player(gameInfo.get(4).toString(),dice, board);
+        
+        int locIndex = Integer.parseInt(gameInfo.get(5).toString());
+        int turnIndex = Integer.parseInt(gameInfo.get(6).toString());
 
-//        int locIndex = Integer.parseInt(gameInfo.get(1).toString());
-//        int turnIndex = Integer.parseInt(gameInfo.get(2).toString());
+
         p.setLocation(locIndex);
         p.setTurn(turnIndex);
-        System.out.println("player "+p.getName() +" turn " + p.getPlayerTurn() );
 
         players.add(p);
-        
-        
         players.remove(0);
+        
         p = new Player(gameInfo.get(0).toString(),dice, board);
         locIndex = Integer.parseInt(gameInfo.get(1).toString());
         turnIndex = Integer.parseInt(gameInfo.get(2).toString());
-       //p = new Player(gameInfo.get(3).toString(),dice, board);
-       // locIndex = Integer.parseInt(gameInfo.get(4).toString());
-       // turnIndex = Integer.parseInt(gameInfo.get(5).toString());
         p.setLocation(locIndex);
         p.setTurn(turnIndex);
-        System.out.println("player "+p.getName() +" turn " + p.getPlayerTurn() );
-        players.add(p);
-
-        roundsPlayed = Integer.parseInt(gameInfo.get(6).toString());
+        players.add(p);            
+        
+        roundsPlayed = Integer.parseInt(gameInfo.get(7).toString());        
     }
     
     public void loadingGameCSV()
-    {
-        
-        
+    {        
         CSVLoad game = new CSVLoad();
         List gameInfo = new ArrayList();
         gameInfo = game.loadGame("game1");
         Player p;
         players.remove(0);
-//        p = new Player(gameInfo.get(0).toString(),dice, board);
         p = new Player(gameInfo.get(3).toString(),dice, board);
         
         int locIndex = Integer.parseInt(gameInfo.get(4).toString());
         int turnIndex = Integer.parseInt(gameInfo.get(5).toString());
 
-//        int locIndex = Integer.parseInt(gameInfo.get(1).toString());
-//        int turnIndex = Integer.parseInt(gameInfo.get(2).toString());
+
         p.setLocation(locIndex);
         p.setTurn(turnIndex);
         System.out.println("player "+p.getName() +" turn " + p.getPlayerTurn() );
@@ -92,9 +83,6 @@ public class MonopolyGame {
         p = new Player(gameInfo.get(0).toString(),dice, board);
         locIndex = Integer.parseInt(gameInfo.get(1).toString());
         turnIndex = Integer.parseInt(gameInfo.get(2).toString());
-       //p = new Player(gameInfo.get(3).toString(),dice, board);
-       // locIndex = Integer.parseInt(gameInfo.get(4).toString());
-       // turnIndex = Integer.parseInt(gameInfo.get(5).toString());
         p.setLocation(locIndex);
         p.setTurn(turnIndex);
         System.out.println("player "+p.getName() +" turn " + p.getPlayerTurn() );

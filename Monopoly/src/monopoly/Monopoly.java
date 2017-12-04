@@ -281,7 +281,7 @@ public void gameSelect(){
         {
             if(players.get(0).getPlayerTurn() == 1)
             {
-                    System.out.println("Player one enter PLAY to take a turn or END to end the game");
+                    System.out.println("Player  "+players.get(0).getName()+"  enter PLAY to take a turn or END to end the game");
                     input = play1.nextLine();
                 
                     if(input.equals("PLAY"))  
@@ -314,7 +314,7 @@ public void gameSelect(){
            // else if(players.get(1).getPlayerTurn() == 1)
                 else
             {    
-                    System.out.println("Player two enter PLAY to take a turn or END to end the game");
+                    System.out.println("Player  "+players.get(1).getName()+"  enter PLAY to take a turn or END to end the game");
                     input = play1.nextLine();
                 
                     if(input.equals("PLAY"))  
@@ -339,7 +339,7 @@ public void gameSelect(){
                     else
                     {
                         System.out.println("You entered an incorrect selection....");
-                        System.out.println("Player one enter PLAY to take a turn or END to end the game");
+                        System.out.println("Player  "+players.get(1).getName()+"  enter PLAY to take a turn or END to end the game");
                         input = play2.next();
                     } 
                     

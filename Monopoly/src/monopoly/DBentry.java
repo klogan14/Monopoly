@@ -25,8 +25,8 @@ public class DBentry
 	StringBuilder sb = new StringBuilder();
 	
 	//change URL to your database server as needed
-	//String dbPath="jdbc:mysql://localhost:3306";
-        String dbPath="jdbc:sqlite:C:\\Users\\John\\Monopoly\\Monopoly\\Players";     //For John's pc
+	String dbPath="jdbc:mysql://localhost:3306";
+        //String dbPath="jdbc:sqlite:C:\\Users\\John\\Monopoly\\Monopoly\\Players";     //For John's pc
 	
 	public static DBentry getInstance() 
 	{
