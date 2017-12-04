@@ -19,7 +19,7 @@ public class Player {
         this.piece = new Piece(board.getStartSquare());
     }
     
-    public void setplayerTurn(int turn)
+    public void setPlayerTurn(int turn)
     {
         this.playerTurn = turn;
     }

@@ -15,16 +15,17 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DBLoad implements LoadGame{
+public class DBLoad implements LoadGame
+{
 
     @Override
     public List loadGame(String filename) {
         List players = new ArrayList();
         String url = "jdbc:sqlite:C:\\Users\\John\\Monopoly\\Monopoly\\Players"; // database location
-        String url2="jdbc:mysql://localhost:3306";   //for Kyle's pc
+        String url2="jdbc:mysql://localhost:3306";
         Connection conn = null;
         java.sql.Statement stmt = null; 
-        String query = "select * from " + filename;
+        String query = "select *  from " + filename;
         
         try {
             //"com.mysql.jdbc.Driver"
@@ -50,11 +51,10 @@ public class DBLoad implements LoadGame{
             ResultSet rs = stmt.executeQuery(query);
             while(rs.next()){
                 players.add(rs.getString("Piece"));
-                players.add(rs.getInt("Location"));
-                players.add(rs.getInt("PlayerTurn"));
-                players.add(rs.getInt("Round"));
+                players.add(rs.getString("Location"));
+                players.add(rs.getString("Turn"));
             }
-            
+            players.add(rs.getString("Round"));
         }
         catch(SQLException e){
             System.out.println("query didnt work");
@@ -69,11 +69,6 @@ public class DBLoad implements LoadGame{
                 }
             }
         }    
-        try {
-            conn.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(DBLoad.class.getName()).log(Level.SEVERE, null, ex);
-        }
         return players;
     }  
 }
