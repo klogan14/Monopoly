@@ -21,21 +21,21 @@ public class DBLoad implements LoadGame
     @Override
     public List loadGame(String filename) {
         List players = new ArrayList();
-        //String url = "jdbc:sqlite:C:\\Users\\John\\Monopoly\\Monopoly\\Players"; // database location
-        String url="jdbc:mysql://localhost:3306";
+        String url = "jdbc:sqlite:C:\\Users\\John\\Monopoly\\Monopoly\\Players"; // database location
+        //String url="jdbc:mysql://localhost:3306";
         Connection conn = null;
         java.sql.Statement stmt = null; 
-       /* kyle file NAme*/filename = "MonopolyDB.MonopolyGame;"; // kyle fileNAme
-        String query = "select *  from " + filename;
+       ///* kyle file NAme*/filename = "MonopolyDB.MonopolyGame;"; // kyle fileNAme
+        String query = "select * from " + filename;
         
-        //String jdbcType = "org.sqlite.JDBC";
-        String jdbcType = "com.mysql.jdbc.Driver";
+        String jdbcType = "org.sqlite.JDBC";
+        //String jdbcType = "com.mysql.jdbc.Driver";
 
         try {
             //"com.mysql.jdbc.Driver"
             Class.forName(jdbcType);  
-            //conn = DriverManager.getConnection(url);//Johns
-            conn = DriverManager.getConnection(url,"root","password");//Kyles
+            conn = DriverManager.getConnection(url);//Johns
+            //conn = DriverManager.getConnection(url,"root","password");//Kyles
 
         } 
         catch (SQLException ex) {

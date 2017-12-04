@@ -34,10 +34,7 @@ public class MonopolyGame {
         gameInfo = game.loadGame("game1");
         Player p;
         players.remove(0);
-        
-        
-        
-           p = new Player(gameInfo.get(4).toString(),dice, board);
+        p = new Player(gameInfo.get(4).toString(),dice, board);
         
         int locIndex = Integer.parseInt(gameInfo.get(5).toString());
         int turnIndex = Integer.parseInt(gameInfo.get(6).toString());
