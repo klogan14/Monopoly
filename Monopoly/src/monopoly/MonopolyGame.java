@@ -58,7 +58,7 @@ public class MonopolyGame {
         
         roundsPlayed = Integer.parseInt(gameInfo.get(7).toString());        
     }
-    
+
     public void loadingGameCSV()
     {        
         CSVLoad game = new CSVLoad();
@@ -120,11 +120,19 @@ public class MonopolyGame {
         return players;
     }
     
+    public void setPlayers(List ofPlayers){
+        this.players = ofPlayers;
+    }
+    
     private void playRound(){
         for(Iterator iter = players.iterator(); iter.hasNext();){
             Player player = (Player) iter.next();
             player.takeTurn();
         }
+    }
+    
+    public int getRoundsTotal(){
+        return ROUNDS_TOTAL;
     }
     
 }

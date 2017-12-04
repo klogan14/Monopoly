@@ -28,7 +28,7 @@ public class SaveCSV
     {
 
         File dataFile = new File("/Users/be0754kc/NetBeansProjects/Monopoly/Monopoly/data.csv");
-        //File dataFile = new File("C:/Users/John/Monopoly/Monopoly/data.csv");    // For John's pc
+       // File dataFile = new File("C:/Users/John/Monopoly/Monopoly/data.csv");    // For John's pc
         BufferedReader file = new BufferedReader(new FileReader(dataFile));
         //try (FileOutputStream fileOut = new FileOutputStream("/Users/be0754kc/NetBeansProjects/Monopoly/Monopoly/data.csv")) {
         try (
