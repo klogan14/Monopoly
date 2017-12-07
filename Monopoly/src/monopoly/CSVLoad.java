@@ -27,11 +27,13 @@ public class CSVLoad implements LoadGame{
             BufferedReader load = new BufferedReader(new FileReader("/Users/be0754kc/NetBeansProjects/Monopoly/Monopoly/data.csv"));
             //BufferedReader load = new BufferedReader(new FileReader("C://Users//John//Monopoly//Monopoly//data.csv"));   //For John's pc
             while((data = load.readLine()) != null && !data.isEmpty()){
-                String [] temp = data.split(",");
-                int tempSize = temp.length;
-                for(int i = 0; i < tempSize; i++){
-                    players.add(temp[i]);
-                }
+                String temp = data;
+                int tempSize = temp.length();
+                players.add(temp);
+                //System.out.println(data);
+//                for(int i = 0; i < tempSize; i++){
+//                    players.add(temp[i]);
+//                }
             } 
             load.close();
         } 

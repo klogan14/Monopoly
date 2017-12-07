@@ -104,9 +104,11 @@ public class DBentry
         {	
 		try 
 		{
-			instance.DBentry("UPDATE MonopolyDB.MonopolyGame\n" +
-                                        "SET Piece = '"+piece+"', Location = "+location+",PlayerTurn = "+playerTurn+", Round = "+round+"\n" +
-                                        "WHERE Piece = '"+piece+"';");	
+                        instance.DBentry( "INSERT INTO MonopolyDB.MonopolyGame (`Piece`, `Location`, `PlayerTurn`, `Round`)" 
+                         +"VALUES ( '"+piece+"' ,'"+location+"' ,'"+playerTurn+"' ,'"+round+"');");
+//			instance.DBentry("update MonopolyDB.MonopolyGame\n" +
+//                                        "SET Piece = '"+piece+"', Location = "+location+",PlayerTurn = "+playerTurn+", Round = "+round+"\n" +
+//                                        "WHERE Piece = '"+piece+"';");	
 			return true;
 		}
 		catch ( Exception err ) 
