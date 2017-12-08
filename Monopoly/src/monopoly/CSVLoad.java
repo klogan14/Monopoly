@@ -32,6 +32,7 @@ public class CSVLoad implements LoadGame{
                 for(int i = 0; i < tempSize; i++){
                     players.add(temp[i]);
                 }
+
             } 
             load.close();
         } 

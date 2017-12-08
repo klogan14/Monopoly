@@ -341,10 +341,3 @@ public void gameSelect(){
                     }
     }
 }
-//File csvFie = new File("/Users/be0754kc/Documents/CS471/MonopolyDB.csv");
-
-//        System.out.println();
-//
-//        System.out.println("csv loading...");
-//        CSVLoad csv = new CSVLoad();
-//        List testList1 = csv.loadGame("data");

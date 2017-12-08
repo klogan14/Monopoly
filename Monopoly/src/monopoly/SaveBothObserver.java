@@ -9,10 +9,6 @@ package monopoly;
  *
  * @author be0754kc
  */
-public class MonopolyGameGui 
-{
-    public static void main(String[] args)
-    {
-        
-    }
+public class SaveBothObserver {
+    
 }

@@ -46,8 +46,8 @@ public class DBentry
 			Class.forName("org.sqlite.JDBC");   //running on John's pc
 			try 
 			{			
-				dbconn = DriverManager.getConnection(dbPath,"root","password");
-                                //dbconn = DriverManager.getConnection(dbPath);  //running on John's pc
+				//dbconn = DriverManager.getConnection(dbPath,"root","password");
+                                dbconn = DriverManager.getConnection(dbPath);  //running on John's pc
 				//System.out.println("gain the connection");
 				return dbconn;
 			}
@@ -104,9 +104,12 @@ public class DBentry
         {	
 		try 
 		{
-			instance.DBentry("UPDATE MonopolyDB.MonopolyGame\n" +
-                                        "SET Piece = '"+piece+"', Location = "+location+",PlayerTurn = "+playerTurn+", Round = "+round+"\n" +
-                                        "WHERE Piece = '"+piece+"';");	
+//                        instance.DBentry( "INSERT INTO MonopolyDB.MonopolyGame (`Piece`, `Location`, `PlayerTurn`, `Round`)"    
+//                         +"VALUES ( '"+piece+"' ,'"+location+"' ,'"+playerTurn+"' ,'"+round+"');");
+                        
+                        instance.DBentry( "INSERT INTO Players.game1 (`Piece`, `Location`, `PlayerTurn`, `Round`)"    //John's pc
+                         +"VALUES ( '"+piece+"' ,'"+location+"' ,'"+playerTurn+"' ,'"+round+"');");
+//				
 			return true;
 		}
 		catch ( Exception err ) 
@@ -116,8 +119,4 @@ public class DBentry
 		}
 	}
 
-	public static void main(String[] args) 
-	{	
-
-        }
 }

@@ -69,12 +69,13 @@ public class MonopolyGame
         gameInfo = game.loadGame("game1");
         
         
- for(int i = 0; i< gameInfo.size(); i++){
-    System.out.println("spot " + i + ": " + gameInfo.get(i).toString());
- }
+// for(int i = 0; i< gameInfo.size(); i++){
+//    System.out.println("spot " + i + ": " + gameInfo.get(i).toString());
+// }
         
         
         Player p;
+
         int lastEntry = (gameInfo.size() - 1);
         String info = gameInfo.get(lastEntry).toString();
         String [] temp = info.split(",");
@@ -85,7 +86,6 @@ public class MonopolyGame
         int locIndex = Integer.parseInt(temp[1]);
         int turnIndex = Integer.parseInt(temp[2]);
 
-
         p.setLocation(locIndex);
         p.setTurn(turnIndex);
         System.out.println("player "+p.getName() +" turn " + p.getPlayerTurn() );
@@ -94,9 +94,11 @@ public class MonopolyGame
         
         
         players.remove(0);
+
         p = new Player(temp[3],dice, board);
         locIndex = Integer.parseInt(temp[4]);
         turnIndex = Integer.parseInt(temp[5]);
+
         p.setLocation(locIndex);
         p.setTurn(turnIndex);
         System.out.println("player "+p.getName() +" turn " + p.getPlayerTurn() );
