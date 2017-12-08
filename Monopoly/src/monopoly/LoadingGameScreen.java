@@ -5,12 +5,20 @@
  */
 package monopoly;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author John
  */
 public class LoadingGameScreen extends javax.swing.JFrame {
 
+        MonopolyGame mpNew = MonopolyGame.getMonopolyGame();
+
+    
     /**
      * Creates new form LoadingGameScreen
      */
@@ -30,7 +38,7 @@ public class LoadingGameScreen extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         databaseButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        csvLoad = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -40,9 +48,19 @@ public class LoadingGameScreen extends javax.swing.JFrame {
 
         databaseButton.setFont(new java.awt.Font("Algerian", 0, 36)); // NOI18N
         databaseButton.setText("Database Load");
+        databaseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                databaseButtonActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Algerian", 0, 36)); // NOI18N
-        jButton2.setText("CSV Load");
+        csvLoad.setFont(new java.awt.Font("Algerian", 0, 36)); // NOI18N
+        csvLoad.setText("CSV Load");
+        csvLoad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                csvLoadActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -58,8 +76,8 @@ public class LoadingGameScreen extends javax.swing.JFrame {
                         .addComponent(databaseButton))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(129, 129, 129)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(84, Short.MAX_VALUE))
+                        .addComponent(csvLoad, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -69,7 +87,7 @@ public class LoadingGameScreen extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addComponent(databaseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(csvLoad, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
@@ -77,7 +95,10 @@ public class LoadingGameScreen extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,6 +107,24 @@ public class LoadingGameScreen extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void databaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_databaseButtonActionPerformed
+        // TODO add your handling code here:
+        
+        mpNew.loadingGameDB();
+        MonopolyGameBoard1 boardScreen = new MonopolyGameBoard1();
+        boardScreen.loading(mpNew);
+        boardScreen.setVisible(true);
+    }//GEN-LAST:event_databaseButtonActionPerformed
+
+    private void csvLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_csvLoadActionPerformed
+        
+        mpNew.loadingGameCSV();
+        MonopolyGameBoard1 boardScreen = new MonopolyGameBoard1();
+        boardScreen.loading(mpNew);
+        boardScreen.setVisible(true);
+        
+    }//GEN-LAST:event_csvLoadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -123,9 +162,26 @@ public class LoadingGameScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton csvLoad;
     private javax.swing.JButton databaseButton;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+
+
+    private void databaseButtonButtonActionPerformed(java.awt.event.ActionEvent evt) 
+    {                                           
+       
+        
+        
+    }
+
 }
+
+
+
+
+
+
+

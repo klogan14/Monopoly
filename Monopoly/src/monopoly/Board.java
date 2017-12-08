@@ -31,6 +31,9 @@ public class Board {
         }
     }
     
+    /*
+        Factory Design Pattern
+    */
     private void build(int i){
         
         if(i == 0){
@@ -42,9 +45,7 @@ public class Board {
             Square s = new regularSquare(i);
             squares.add(s);
         }
-//        use Factory design pattern to replace this code
-//        Square s = new Square("Square " + i, i-1);
-//        squares.add(s);
+
     }
     
     private void linkSquares(){

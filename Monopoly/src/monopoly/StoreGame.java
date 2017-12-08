@@ -11,6 +11,8 @@ import java.io.IOException;
 /**
  *
  * @author be0754kc
+ * 
+ * Adapater
  */
 public interface StoreGame
 {

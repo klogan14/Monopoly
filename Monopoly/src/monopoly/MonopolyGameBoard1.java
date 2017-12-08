@@ -37,6 +37,7 @@ public class MonopolyGameBoard1 extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         textDisplayArea = new javax.swing.JTextPane();
         BoardImage = new javax.swing.JLabel();
+        updateButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Monopoly Game");
@@ -53,11 +54,18 @@ public class MonopolyGameBoard1 extends javax.swing.JFrame {
 
         textDisplayArea.setEditable(false);
         textDisplayArea.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        textDisplayArea.setText("Hello");
         jScrollPane1.setViewportView(textDisplayArea);
 
         BoardImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/monopoly/board.jpg"))); // NOI18N
         BoardImage.setOpaque(true);
+
+        updateButton.setFont(new java.awt.Font("Wide Latin", 1, 36)); // NOI18N
+        updateButton.setText("Update");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -66,30 +74,65 @@ public class MonopolyGameBoard1 extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addComponent(rollButton, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(148, 148, 148)
+                                .addComponent(rollButton, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(114, 114, 114)
+                                .addComponent(updateButton)))
+                        .addGap(210, 210, 210))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addComponent(BoardImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(rollButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(BoardImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(BoardImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /*
+        Observer
+    */
     private void rollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rollButtonActionPerformed
         playGame(mpNew);
     }//GEN-LAST:event_rollButtonActionPerformed
+
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        // TODO add your handling code here:
+        List<Player> players = mpNew.getPlayers();
+        
+        Player p;
+        if(players.get(0).getPlayerTurn() > players.get(1).getPlayerTurn())
+        {
+            p =  players.get(0);
+        }
+        else
+        {
+            p =  players.get(1);
+        }
+        
+        this.textDisplayArea.setText(/*"Player "+players.get(0).getName()+ " turn, number of rounds: " + mpNew.getRoundsPlayed() + "\n " + */
+                        "Player "+players.get(0).getName()+" Location: " + players.get(0).getLocation().getIndex() + "\n"
+                        +"Player "+players.get(1).getName()+" Location: " + players.get(1).getLocation().getIndex() + "\n"
+                        + "It is player " + p.getName() + "'s turn \n" +
+                                "Round: " + mpNew.getRoundsPlayed());
+        
+    }//GEN-LAST:event_updateButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,8 +178,13 @@ public class MonopolyGameBoard1 extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton rollButton;
     private javax.swing.JTextPane textDisplayArea;
+    private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
-
+public void loading(MonopolyGame load){
+    mpNew = load;
+}
+    
+    
 public void playGame(MonopolyGame game)
     {
         List<Player> players = game.getPlayers();
@@ -147,10 +195,19 @@ public void playGame(MonopolyGame game)
         game.setRoundsPlayed(game.getRoundsPlayed());
         int roundsPlayed = game.getRoundsPlayed();
         DBentry dbEntry = new DBentry();
-
+//
+//        this.textDisplayArea.setText("Player "+players.get(0).getName()+ " turn, number of rounds: " + game.getRoundsPlayed() + "\n "
+//                        +"Player "+players.get(0).getName()+" Location" + players.get(0).getLocation().getIndex() + "\n "
+//                        +"Player "+players.get(1).getName()+" Location" + players.get(1).getLocation().getIndex());
+//        
         if(roundsPlayed < game.getRoundsTotal()){
             if(players.get(0).getPlayerTurn() == 1){
-                this.textDisplayArea.setText("Player one's turn, number of rounds: " + game.getRoundsPlayed());
+                this.textDisplayArea.setText("Player "+players.get(0).getName()+ " just went, number of rounds: " + game.getRoundsPlayed() + "\n"
+                        +"Player "+players.get(0).getName()+" Location: " + players.get(0).getLocation().getIndex() + "\n"
+                        +"Player "+players.get(1).getName()+" Location: " + players.get(1).getLocation().getIndex()
+                        );
+             //   this.textDisplayArea.setText("Player "+players.get(0).getName()+" Location" + players.get(0).getLocation().getIndex());
+             //   this.textDisplayArea.setText("Player "+players.get(1).getName()+" Location" + players.get(1).getLocation().getIndex());
                 players.get(0).takeTurn();
                 players.get(0).setPlayerTurn(0);
                 players.get(1).setPlayerTurn(1);
@@ -159,8 +216,8 @@ public void playGame(MonopolyGame game)
                 try {
                     saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
                     players.get(1).getName(),  players.get(1).getLocation(), players.get(1).getPlayerTurn(),game.getRoundsPlayed());
-                    dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
                     dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), game.getRoundsPlayed());
+                    dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
                 } 
                 catch (IOException ex){
                     Logger.getLogger(Monopoly.class.getName()).log(Level.SEVERE, null, ex);
@@ -168,7 +225,12 @@ public void playGame(MonopolyGame game)
             }
             
             else{    
-                this.textDisplayArea.setText("Player two's turn, number of rounds: " + game.getRoundsPlayed());
+                this.textDisplayArea.setText("Player "+players.get(1).getName()+ " just went, number of rounds: " + game.getRoundsPlayed() + "\n"
+                        +"Player "+players.get(0).getName()+" Location: " + players.get(0).getLocation().getIndex() + "\n"
+                        +"Player "+players.get(1).getName()+" Location: " + players.get(1).getLocation().getIndex()
+                        );
+
+
                 players.get(1).takeTurn();
                 players.get(0).setPlayerTurn(1);
                 players.get(1).setPlayerTurn(0);
@@ -178,8 +240,8 @@ public void playGame(MonopolyGame game)
                 try{
                     saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
                     players.get(1).getName(),  players.get(1).getLocation(), players.get(1).getPlayerTurn(),game.getRoundsPlayed());
-                    dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
                     dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), game.getRoundsPlayed());
+                    dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
                 } 
                 catch (IOException ex){
                     Logger.getLogger(Monopoly.class.getName()).log(Level.SEVERE, null, ex);

@@ -10,7 +10,8 @@ import java.util.List;
 
 //This is our Singleton design pattern 
 
-public class MonopolyGame {
+public class MonopolyGame 
+{
     private static final int ROUNDS_TOTAL = 20;
     private static final int PLAYERS_TOTAL = 2;
     private List players = new ArrayList(PLAYERS_TOTAL);
@@ -18,6 +19,11 @@ public class MonopolyGame {
     private Die[] dice = {new Die(), new Die()};
 
     public int roundsPlayed = 0;
+    
+    /*
+        Singleton you can only get one intance
+    */
+    
     private MonopolyGame(){
         Player p;
         p = new Player("Horse", dice, board);
@@ -34,10 +40,10 @@ public class MonopolyGame {
         gameInfo = game.loadGame("game1");
         Player p;
         players.remove(0);
-        p = new Player(gameInfo.get(4).toString(),dice, board);
+        p = new Player(gameInfo.get(0).toString(),dice, board);
         
-        int locIndex = Integer.parseInt(gameInfo.get(5).toString());
-        int turnIndex = Integer.parseInt(gameInfo.get(6).toString());
+        int locIndex = Integer.parseInt(gameInfo.get(1).toString());
+        int turnIndex = Integer.parseInt(gameInfo.get(2).toString());
 
 
         p.setLocation(locIndex);
@@ -46,9 +52,9 @@ public class MonopolyGame {
         players.add(p);
         players.remove(0);
         
-        p = new Player(gameInfo.get(0).toString(),dice, board);
-        locIndex = Integer.parseInt(gameInfo.get(1).toString());
-        turnIndex = Integer.parseInt(gameInfo.get(2).toString());
+        p = new Player(gameInfo.get(4).toString(),dice, board);
+        locIndex = Integer.parseInt(gameInfo.get(5).toString());
+        turnIndex = Integer.parseInt(gameInfo.get(6).toString());
         p.setLocation(locIndex);
         p.setTurn(turnIndex);
         players.add(p);            
@@ -61,12 +67,23 @@ public class MonopolyGame {
         CSVLoad game = new CSVLoad();
         List gameInfo = new ArrayList();
         gameInfo = game.loadGame("game1");
+        
+        
+ for(int i = 0; i< gameInfo.size(); i++){
+    System.out.println("spot " + i + ": " + gameInfo.get(i).toString());
+ }
+        
+        
         Player p;
-        players.remove(0);
-        p = new Player(gameInfo.get(3).toString(),dice, board);
+        int lastEntry = (gameInfo.size() - 1);
+        String info = gameInfo.get(lastEntry).toString();
+        String [] temp = info.split(",");
         
-        int locIndex = Integer.parseInt(gameInfo.get(4).toString());
-        int turnIndex = Integer.parseInt(gameInfo.get(5).toString());
+        players.remove(0);
+        p = new Player(temp[0],dice, board);
+        
+        int locIndex = Integer.parseInt(temp[1]);
+        int turnIndex = Integer.parseInt(temp[2]);
 
 
         p.setLocation(locIndex);
@@ -77,15 +94,15 @@ public class MonopolyGame {
         
         
         players.remove(0);
-        p = new Player(gameInfo.get(0).toString(),dice, board);
-        locIndex = Integer.parseInt(gameInfo.get(1).toString());
-        turnIndex = Integer.parseInt(gameInfo.get(2).toString());
+        p = new Player(temp[3],dice, board);
+        locIndex = Integer.parseInt(temp[4]);
+        turnIndex = Integer.parseInt(temp[5]);
         p.setLocation(locIndex);
         p.setTurn(turnIndex);
         System.out.println("player "+p.getName() +" turn " + p.getPlayerTurn() );
         players.add(p);
 
-        roundsPlayed = Integer.parseInt(gameInfo.get(6).toString());
+        roundsPlayed = Integer.parseInt(temp[6]);
     }
     
     
