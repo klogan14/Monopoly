@@ -168,15 +168,6 @@ public class LoadingGameScreen extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
-
-
-    private void databaseButtonButtonActionPerformed(java.awt.event.ActionEvent evt) 
-    {                                           
-       
-        
-        
-    }
-
 }
 
 
