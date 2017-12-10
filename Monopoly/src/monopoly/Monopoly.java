@@ -116,9 +116,14 @@ public void gameSelect(){
         //MonopolyGame mp =  MonopolyGame.getMonopolyGame();
         List<Player> players = game.getPlayers();
 
-        SaveCSV saveCSV = new SaveCSV();
-        SaveCSVAdpater saveCSVAdapater = new SaveCSVAdpater(saveCSV); //adapater implementation
+//        SaveCSV saveCSV = new SaveCSV();
+//        SaveCSVAdpater saveCSVAdapater = new SaveCSVAdpater(saveCSV); //adapater implementation
+        
+        SaveObserver saveObserver = new SaveObserver();
+        SaveBothObservable saveBoth = new SaveBothObservable();
+        saveBoth.addObserver(saveObserver);
 
+        
         game.setRoundsPlayed(game.getRoundsPlayed());
         int roundsPlayed = game.getRoundsPlayed();
         DBentry dbEntry = new DBentry();
@@ -153,15 +158,23 @@ public void gameSelect(){
 
                     try
                     {
-                    saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
+                        
+                    saveBoth.saveCSV(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
                             players.get(1).getName(),  players.get(1).getLocation(), players.get(1).getPlayerTurn(),game.getRoundsPlayed());
+
+//                    saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
+//                            players.get(1).getName(),  players.get(1).getLocation(), players.get(1).getPlayerTurn(),game.getRoundsPlayed());
                     }
                     catch (IOException ex)
                     {
                         Logger.getLogger(Monopoly.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
-                    dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), game.getRoundsPlayed());
+                    
+                    saveBoth.saveDB(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
+                    saveBoth.saveDB(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), game.getRoundsPlayed());
+
+//                    dbEntry.insert(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
+//                    dbEntry.insert(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), game.getRoundsPlayed());
             }
             else
             {
@@ -198,15 +211,22 @@ public void gameSelect(){
 
                     try
                     {
-                    saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
+                        saveBoth.saveCSV(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
                             players.get(1).getName(),  players.get(1).getLocation(), players.get(1).getPlayerTurn(),game.getRoundsPlayed());
+
+//                    saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
+//                            players.get(1).getName(),  players.get(1).getLocation(), players.get(1).getPlayerTurn(),game.getRoundsPlayed());
                     }
                     catch (IOException ex)
                     {
                         Logger.getLogger(Monopoly.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
-                    dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), game.getRoundsPlayed());
+                    
+                    saveBoth.saveDB(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
+                    saveBoth.saveDB(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), game.getRoundsPlayed());
+
+//                    dbEntry.insert(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), game.getRoundsPlayed());
+//                    dbEntry.insert(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), game.getRoundsPlayed());
 
                 }
 
@@ -233,11 +253,12 @@ public void gameSelect(){
         MonopolyGame mp =  MonopolyGame.getMonopolyGame();
         List<Player> players = mp.getPlayers();
 
-        SaveCSV saveCSV = new SaveCSV();
-        SaveCSVAdpater saveCSVAdapater = new SaveCSVAdpater(saveCSV); //adapater implementation
+        
         int roundsPlayed = mp.getRoundsPlayed();
         DBentry dbEntry = new DBentry();
-
+        SaveObserver saveObserver = new SaveObserver();
+        SaveBothObservable saveBoth = new SaveBothObservable();
+        saveBoth.addObserver(saveObserver);
 
         System.out.println("Player1 = " + players.get(0).getName()+ " & turn is " + players.get(0).getTurn());
         System.out.println("Player2= " + players.get(1).getName()+ " & turn is " + players.get(1).getTurn());
@@ -269,15 +290,19 @@ public void gameSelect(){
 
                     try
                     {
-                    saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
+                        saveBoth.saveCSV(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
                             players.get(1).getName(),  players.get(1).getLocation(), players.get(1).getPlayerTurn(),mp.getRoundsPlayed());
+//                    saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
+//                            players.get(1).getName(),  players.get(1).getLocation(), players.get(1).getPlayerTurn(),mp.getRoundsPlayed());
                     }
                     catch (IOException ex)
                     {
                         Logger.getLogger(Monopoly.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), mp.getRoundsPlayed());
-                    dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), mp.getRoundsPlayed());
+                    saveBoth.saveDB(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), mp.getRoundsPlayed());
+                    saveBoth.saveDB(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), mp.getRoundsPlayed());
+//                    dbEntry.insert(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), mp.getRoundsPlayed());
+//                    dbEntry.insert(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), mp.getRoundsPlayed());
             }
             else
             {
@@ -315,15 +340,21 @@ public void gameSelect(){
 
                     try
                     {
-                    saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
+                        
+                        saveBoth.saveCSV(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
                             players.get(1).getName(),  players.get(1).getLocation(), players.get(1).getPlayerTurn(),mp.getRoundsPlayed());
+                        
+//                    saveCSVAdapater.storeGame(players.get(0).getName(),players.get(0).getLocation(),players.get(0).getPlayerTurn(),
+//                            players.get(1).getName(),  players.get(1).getLocation(), players.get(1).getPlayerTurn(),mp.getRoundsPlayed());
                     }
                     catch (IOException ex)
                     {
                         Logger.getLogger(Monopoly.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    dbEntry.update(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), mp.getRoundsPlayed());
-                    dbEntry.update(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), mp.getRoundsPlayed());
+                    saveBoth.saveDB(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), mp.getRoundsPlayed());
+                    saveBoth.saveDB(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), mp.getRoundsPlayed());
+//                    dbEntry.insert(players.get(1).getName(), players.get(1).getLocation().getIndex(), players.get(1).getPlayerTurn(), mp.getRoundsPlayed());
+//                    dbEntry.insert(players.get(0).getName(), players.get(0).getLocation().getIndex(), players.get(0).getPlayerTurn(), mp.getRoundsPlayed());
 
                 }
 

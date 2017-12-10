@@ -12,8 +12,10 @@ package monopoly;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
+import java.util.Observable;
+import java.util.Observer;
 
-public class DBentry 
+public class DBentry implements Observer
 {
 
 	private static final long serialVersionUID = 1L;
@@ -100,7 +102,7 @@ public class DBentry
 		}
 	}
 	
-	public boolean update( String piece, int location, int playerTurn, int round) 
+	public boolean insert( String piece, int location, int playerTurn, int round) 
         {	
 		try 
 		{
@@ -118,5 +120,11 @@ public class DBentry
 			return false;
 		}
 	}
+
+    @Override
+    public void update(Observable o, Object arg) 
+    {
+        System.out.println("state of saved game changed: " + arg);
+    }
 
 }

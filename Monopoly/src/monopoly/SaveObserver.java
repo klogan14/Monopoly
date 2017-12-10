@@ -5,10 +5,19 @@
  */
 package monopoly;
 
+import java.util.Observable;
+import java.util.Observer;
+
 /**
  *
  * @author be0754kc
  */
-public class SaveBothObserver {
+public class SaveObserver implements Observer
+{
+    @Override
+    public void update(Observable o, Object arg) 
+    {
+        System.out.println("Data file updated: " + arg);
+    }
     
 }
