@@ -38,12 +38,13 @@ public class MonopolyGame
         DBLoad game = new DBLoad();
         List gameInfo = new ArrayList();
         gameInfo = game.loadGame("game1");
+        int gameInfoSize = gameInfo.size();
         Player p;
         players.remove(0);
-        p = new Player(gameInfo.get(0).toString(),dice, board);
+        p = new Player(gameInfo.get(gameInfoSize - 8).toString(),dice, board);
         
-        int locIndex = Integer.parseInt(gameInfo.get(1).toString());
-        int turnIndex = Integer.parseInt(gameInfo.get(2).toString());
+        int locIndex = Integer.parseInt(gameInfo.get(gameInfoSize - 7).toString());
+        int turnIndex = Integer.parseInt(gameInfo.get(gameInfoSize - 6).toString());
 
 
         p.setLocation(locIndex);
@@ -52,14 +53,14 @@ public class MonopolyGame
         players.add(p);
         players.remove(0);
         
-        p = new Player(gameInfo.get(4).toString(),dice, board);
-        locIndex = Integer.parseInt(gameInfo.get(5).toString());
-        turnIndex = Integer.parseInt(gameInfo.get(6).toString());
+        p = new Player(gameInfo.get(gameInfoSize - 4).toString(),dice, board);
+        locIndex = Integer.parseInt(gameInfo.get(gameInfoSize - 3).toString());
+        turnIndex = Integer.parseInt(gameInfo.get(gameInfoSize - 2).toString());
         p.setLocation(locIndex);
         p.setTurn(turnIndex);
         players.add(p);            
         
-        roundsPlayed = Integer.parseInt(gameInfo.get(7).toString());        
+        roundsPlayed = Integer.parseInt(gameInfo.get(gameInfoSize - 1).toString());        
     }
 
     public void loadingGameCSV()
